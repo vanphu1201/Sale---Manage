@@ -5,4 +5,8 @@ const controller = require("../../controllers/admin/products.controller");
 
 route.get("/products", controller.index);
 
+route.get("/products/changeStatus/:changeStatus/:id", controller.changeStatus);
+
+
+
 module.exports = route;

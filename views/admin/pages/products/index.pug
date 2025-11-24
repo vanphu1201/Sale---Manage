@@ -22,7 +22,10 @@ block main
                         th Thao tác
                     tbody
                         each product, index in products
-                            tr
+                            tr(
+                                box-product
+                                product-id=product.id
+                            )
                                 td #{index + 1}
                                 td
                                     .d-flex.align-items-center.gap-3
@@ -34,9 +37,17 @@ block main
                                 td #{product.stock}
                                 td
                                     if(product.status=="active")
-                                        span.status-badge.in-stock Hoạt động
+                                        a(
+                                            href=`/admin/products/changeStatus/inactive/${product.id}`
+                                            class="status-badge in-stock"
+                                            current-status="active"
+                                        ) Hoạt động
                                     else 
-                                        span.status-badge.out-of-stock Ngừng hoạt động
+                                        a(
+                                            href=`/admin/products/changeStatus/active/${product.id}`
+                                            class="status-badge out-of-stock"
+                                            current-status="inactive"
+                                        ) Ngừng hoạt động
                                 td
                                     .action-buttons
                                         button.btn-action.edit(type='button')
