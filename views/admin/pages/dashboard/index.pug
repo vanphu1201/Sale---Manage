@@ -1,0 +1,29 @@
+extends ../../layouts/default.pug
+
+block main
+  // Statistics Cards
+  .row.mb-4
+      .col-lg-3.col-md-6.mb-4
+          .stats-card
+              .stats-icon.primary
+                  i(class="fas fa-box")
+              .stats-value 1,284
+              .stats-label Tổng sản phẩm
+      .col-lg-3.col-md-6.mb-4
+          .stats-card
+              .stats-icon.success
+                  i(class="fas fa-check-circle")
+              .stats-value 892
+              .stats-label Còn hàng
+      .col-lg-3.col-md-6.mb-4
+          .stats-card
+              .stats-icon.warning
+                  i(class="fas fa-exclamation-triangle")
+              .stats-value 256
+              .stats-label Sắp hết hàng
+      .col-lg-3.col-md-6.mb-4
+          .stats-card
+              .stats-icon.info
+                  i(class="fas fa-times-circle")
+              .stats-value 136
+              .stats-label Hết hàng

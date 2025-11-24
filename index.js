@@ -9,6 +9,7 @@ app.use(express.static('public'));
 
 //Nhúng route
 const Route = require("./routes/client/index.route");
+const RouteAdmin = require("./routes/admin/index.route");
 //Hết Nhúng route
 
 
@@ -20,7 +21,8 @@ app.set('view engine', 'pug');
 
 
 // route
-Route(app)
+Route(app);
+RouteAdmin(app);
 // End route
 
 app.listen(port, () => {
