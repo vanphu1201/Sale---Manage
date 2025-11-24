@@ -8,7 +8,7 @@ app.use(express.static('public'));
 
 
 //Nhúng route
-const Route = require("./routes/client/index");
+const Route = require("./routes/client/index.route");
 //Hết Nhúng route
 
 
