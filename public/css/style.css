@@ -185,12 +185,12 @@
       }
       
       .product-card {
+        height: 360px;   
         background-color: white;
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         transition: all 0.3s;
-        height: 100%;
       }
       
       .product-card:hover {
