@@ -1,0 +1,40 @@
+// Header
+header.sticky-top.bg-white.shadow-sm
+    .container
+        .row.align-items-center.py-3
+            .col-md-3
+                a.logo(href='#')
+                    i.fas.fa-sun
+                    span Sale Manage
+            .col-md-6.my-3.my-md-0
+                .search-container
+                    input.search-box(type='text', placeholder='Tìm kiếm sản phẩm...')
+                    button.search-btn
+                        i.fas.fa-search
+            .col-md-3
+                .header-actions.d-flex.justify-content-end
+                    button(title='Tài khoản')
+                        i.fas.fa-user
+                    button(title='Giỏ hàng')
+                        i.fas.fa-shopping-cart
+                        span.cart-count 3
+                    button.navbar-toggler.d-md-none(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNav')
+                            i.fas.fa-bars
+
+// Navigation
+nav.navbar.navbar-expand-lg.navbar-custom
+    .container
+        #navbarNav.collapse.navbar-collapse
+            ul.navbar-nav.mx-auto
+                li.nav-item
+                    a.nav-link(href='#') Trang chủ
+                li.nav-item
+                    a.nav-link(href='#') Sản phẩm
+                li.nav-item
+                    a.nav-link(href='#') Khuyến mãi
+                li.nav-item
+                    a.nav-link(href='#') Bộ sưu tập
+                li.nav-item
+                    a.nav-link(href='#') Về chúng tôi
+                li.nav-item
+                    a.nav-link(href='#') Liên hệ
