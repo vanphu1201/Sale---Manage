@@ -16,126 +16,34 @@ block main
                     tr
                         th STT
                         th Sản phẩm
-                        th Danh mục
                         th Giá
                         th Tồn kho
                         th Trạng thái
                         th Thao tác
                     tbody
-                        tr
-                            td 1
-                            td
-                                .d-flex.align-items-center.gap-3
-                                    img.product-img(src='https://picsum.photos/seed/prod1/100/100.jpg', alt='Product')
-                                    div
-                                        .product-name Áo Thun Cổ Tròn Phong Cách Hàn Quốc
-                                        .product-category Thời trang nam
-                            td Thời trang
-                            td 240.000đ
-                            td 125
-                            td
-                                span.status-badge.in-stock Còn hàng
-                            td
-                                .action-buttons
-                                    button.btn-action.edit(type='button')
-                                        i(class="fas fa-edit")
-                                    button.btn-action.delete(type='button')
-                                        i(class="fas fa-trash")
-                        tr
-                            td 2
-                            td
-                                .d-flex.align-items-center.gap-3
-                                    img.product-img(src='https://picsum.photos/seed/prod2/100/100.jpg', alt='Product')
-                                    div
-                                        .product-name Tai Nghe Bluetooth Chống Ồn Cao Cấp
-                                        .product-category Điện tử
-                            td Điện tử
-                            td 890.000đ
-                            td 45
-                            td
-                                span.status-badge.low-stock Sắp hết hàng
-                            td
-                                .action-buttons
-                                    button.btn-action.edit(type='button')
-                                        i(class="fas fa-edit")
-                                    button.btn-action.delete(type='button')
-                                        i(class="fas fa-trash")
-                        tr
-                            td 3
-                            td
-                                .d-flex.align-items-center.gap-3
-                                    img.product-img(src='https://picsum.photos/seed/prod3/100/100.jpg', alt='Product')
-                                    div
-                                        .product-name Balo Du Lịch Chống Thấm Nước
-                                        .product-category Phụ kiện
-                            td Phụ kiện
-                            td 425.000đ
-                            td 0
-                            td
-                                span.status-badge.out-of-stock Hết hàng
-                            td
-                                .action-buttons
-                                    button.btn-action.edit(type='button')
-                                        i(class="fas fa-edit")
-                                    button.btn-action.delete(type='button')
-                                        i(class="fas fa-trash")
-                        tr
-                            td 4
-                            td
-                                .d-flex.align-items-center.gap-3
-                                    img.product-img(src='https://picsum.photos/seed/prod4/100/100.jpg', alt='Product')
-                                    div
-                                        .product-name Đồng Hồ Thông Minh Đo Nhịp Tim
-                                        .product-category Điện tử
-                            td Điện tử
-                            td 1.290.000đ
-                            td 78
-                            td
-                                span.status-badge.in-stock Còn hàng
-                            td
-                                .action-buttons
-                                    button.btn-action.edit(type='button')
-                                        i(class="fas fa-edit")
-                                    button.btn-action.delete(type='button')
-                                        i(class="fas fa-trash")
-                        tr
-                            td 5
-                            td
-                                .d-flex.align-items-center.gap-3
-                                    img.product-img(src='https://picsum.photos/seed/prod5/100/100.jpg', alt='Product')
-                                    div
-                                        .product-name Bình Giữ Nhiệt Thể Thao 1L
-                                        .product-category Đồ dùng thể thao
-                            td Thể thao
-                            td 175.000đ
-                            td 234
-                            td
-                                span.status-badge.in-stock Còn hàng
-                            td
-                                .action-buttons
-                                    button.btn-action.edit(type='button')
-                                        i(class="fas fa-edit")
-                                    button.btn-action.delete(type='button')
-                                        i(class="fas fa-trash")
-                        tr
-                            td 6
-                            td
-                                .d-flex.align-items-center.gap-3
-                                    img.product-img(src='https://picsum.photos/seed/prod6/100/100.jpg', alt='Product')
-                                    div
-                                        .product-name Kem Chống Nắng SPF 50+ PA++++
-                                        .product-category Mỹ phẩm
-                            td Mỹ phẩm
-                            td 320.000đ
-                            td 12
-                            td
-                                span.status-badge.low-stock Sắp hết hàng
-                            td
-                                .action-buttons
-                                    button.btn-action.edit(type='button')
-                                        i(class="fas fa-edit")
-                                    button.btn-action.delete(type='button')
-                                        i(class="fas fa-trash")
+                        each product, index in products
+                            tr
+                                td #{index + 1}
+                                td
+                                    .d-flex.align-items-center.gap-3
+                                        img.product-img(src=product.thumbnail, alt=product.title)
+                                        div
+                                            .product-name #{product.title}
+                                            //-.product-category Thời trang nam
+                                td #{product.currentPrice}đ
+                                td #{product.stock}
+                                td
+                                    if(product.status=="active")
+                                        span.status-badge.in-stock Hoạt động
+                                    else 
+                                        span.status-badge.out-of-stock Ngừng hoạt động
+                                td
+                                    .action-buttons
+                                        button.btn-action.edit(type='button')
+                                            i(class="fas fa-edit")
+                                        button.btn-action.delete(type='button')
+                                            i(class="fas fa-trash")
+                       
     
     // Pagination
     .pagination-container
