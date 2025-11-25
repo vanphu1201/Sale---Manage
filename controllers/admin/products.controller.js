@@ -20,7 +20,7 @@ module.exports.index = async (req, res) => {
     }
     // End Search product
 
-    const products = await Products.find(find);
+    const products = await Products.find(find).sort({position: "desc"});
     
     
     // Tính current price

@@ -26,6 +26,7 @@ block main
                     tr
                         th STT
                         th Sản phẩm
+                        th Vị trí
                         th Giá
                         th Tồn kho
                         th Trạng thái
@@ -43,6 +44,7 @@ block main
                                         div
                                             .product-name #{product.title}
                                             //-.product-category Thời trang nam
+                                td #{product.position}
                                 td #{product.currentPrice}đ
                                 td #{product.stock}
                                 td
