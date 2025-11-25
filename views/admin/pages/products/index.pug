@@ -4,8 +4,9 @@ block main
     .table-container
         .table-header
             .search-box
-                input.search-input(type='text', placeholder='Tìm kiếm sản phẩm...')
-                i(class="fas fa-search search-icon")
+                form(action="/admin/products/search", method="post") 
+                    input.search-input(type='text', placeholder='Tìm kiếm sản phẩm...')
+                    button(class="fas fa-search search-icon")
             button.btn-add-product(type='button', data-bs-toggle='modal', data-bs-target='#addProductModal')
                 i(class="fas fa-plus")
                 span Thêm sản phẩm

@@ -439,6 +439,32 @@
     .status-badge {
         text-decoration: none;
     }
+
+
+    .search-icon {
+        /* Loại bỏ các định dạng nút mặc định của trình duyệt */
+        background: transparent;
+        border: none;
+        
+        /* Căn chỉnh và kích thước */
+        padding: 10px 15px; /* Tăng padding để dễ click và cân đối với input */
+        cursor: pointer;
+        font-size: 18px; /* Kích thước icon (tùy thuộc vào font awesome) */
+        color: #333; /* Màu icon */
+        transition: color 0.2s; /* Thêm chuyển động mượt mà */
+    }
+
+    /* Hiệu ứng khi di chuột qua nút */
+    .search-icon:hover {
+        color: var(--primary-color); /* Thay đổi màu khi di chuột qua */
+    }
+
+    /* Định dạng cho input để nó căn chỉnh và trông đẹp hơn */
+    .search-input {
+        flex-grow: 1;
+        padding: 10px 15px;
+        outline: none; /* Loại bỏ viền xanh khi focus */
+    }
     
     /* Mobile Toggle */
     .sidebar-toggle {
