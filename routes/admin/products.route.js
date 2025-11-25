@@ -9,7 +9,7 @@ route.get("/products/changeStatus/:changeStatus/:id", controller.changeStatus);
 
 route.get("/products/delete/:id", controller.delete);
 
-
+route.get("/products/create", controller.create);
 
 
 module.exports = route;

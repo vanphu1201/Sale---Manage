@@ -16,7 +16,12 @@ block main
                         value=searchValue
                     )
                     button(class="fas fa-search search-icon")
-            button.btn-add-product(type='button', data-bs-toggle='modal', data-bs-target='#addProductModal')
+            a(
+                href="/admin/products/create"
+                class="btn-add-product"
+                data-toggle='modal'
+                dat-target='#addProductModal'
+            )
                 i(class="fas fa-plus")
                 span Thêm sản phẩm
         

@@ -52,3 +52,10 @@ module.exports.delete = async (req, res) => {
     await Products.updateOne({_id: id}, {deleted: true});
     res.redirect(req.headers.referer);
 }
+
+// [GET] /admin/products/create
+module.exports.create = async (req, res) => {
+    res.render("admin/pages/products/create.pug", {
+        pageTitle: "Create product"
+    })
+}
