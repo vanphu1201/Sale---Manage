@@ -50,9 +50,14 @@ block main
                                         ) Ngừng hoạt động
                                 td
                                     .action-buttons
-                                        button.btn-action.edit(type='button')
+                                        a(
+                                            class="btn-action edit"
+                                        )
                                             i(class="fas fa-edit")
-                                        button.btn-action.delete(type='button')
+                                        a(
+                                            href=`/admin/products/delete/${product.id}`
+                                            class="btn-action delete"
+                                        )
                                             i(class="fas fa-trash")
                        
     
