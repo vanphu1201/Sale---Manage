@@ -1,18 +1,9 @@
-// Search product 
-const formSearch = document.querySelector("form[form-search]");
-if (formSearch) {
-    const url = new URL(window.location.href);
-    formSearch.addEventListener("submit", e => {
-        e.preventDefault();
-        const searchValue = e.target.elements[0].value;
-        if (searchValue) {
-            url.searchParams.set("search", searchValue);
-            window.location.href = url.href;
-        } else {
-            url.searchParams.delete("search");
-            window.location.href = url.href;
-        }
-    });
-}
+// Sidebar toggle for mobile
+document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+    document.querySelector('.sidebar').classList.toggle('active');
+});
+// End Sidebar toggle for mobile
 
-// End Search product 
+
+
+

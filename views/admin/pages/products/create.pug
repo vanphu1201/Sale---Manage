@@ -1,6 +1,6 @@
 extends ../../layouts/default
       
-block main 
+block main
     // Content Area
     .content-area
         // Basic Information
@@ -8,101 +8,138 @@ block main
             h2.section-title
                 i(class="fas fa-info-circle")
                 span Thông tin cơ bản
-        
-            .row
-                .col-md-6.mb-3
-                    label.form-label Tên sản phẩm *
-                    input.form-control(type='text', placeholder='Nhập tên sản phẩm', required)
-                .col-md-6.mb-3
-                    label.form-label Danh mục *
-                    select.form-select(required)
-                        option(value='') Chọn danh mục
-                        option Thời trang nam
-                        option Thời trang nữ
-                        option Điện tử
-                        option Phụ kiện
-                        option Thể thao
-                        option Mỹ phẩm
 
-            .row 
-                .col-md-4.mb-3
-                    label.form-label Giá gốc *
-                    input.form-control(type='number', placeholder='0')
-                .col-md-4.mb-3
-                    label.form-label % Giảm giá
-                    input.form-control(type='number', placeholder='0')
-                .col-md-4.mb-3
-                    label.form-label Trạng thái
-                    select.form-select
-                        option(value='active') Hoạt động
-                        option(value='inactive') Không hoạt động
+            form(
+                action="/admin/products/create"
+                method="post"
+                class="form-create"
+                enctype="multipart/form-data"
+            )
+                .row
+                    .col-md-6.mb-3
+                        label.form-label Tên sản phẩm *
+                        input.form-control(
+                            type='text'
+                            name="title"
+                            placeholder='Nhập tên sản phẩm'
+                            required
+                        )
+                    .col-md-6.mb-3
+                        label.form-label Danh mục *
+                        select.form-select(
+                            name="category"
+                        )
+                            option(value='') Chọn danh mục
+                            option Thời trang nam
+                            option Thời trang nữ
+                            option Điện tử
+                            option Phụ kiện
+                            option Thể thao
+                            option Mỹ phẩm
 
-            .row 
-                .col-md-6.mb-3
-                    label.form-label Số lượng tồn kho *
-                    input.form-control(type='number', placeholder='0', required)
-                .col-md-6.mb-3
-                    label.form-label Vị trí
-                    input.form-control(type='number', placeholder='Tự động tăng')
-            
-            .mb-3
-                label(class="description form-label") Mô tả chi tiết
-                .editor-toolbar
-                    button.editor-btn(type='button')
-                        i(class="fas fa-bold")
-                    button.editor-btn(type='button')
-                        i(class="fas fa-italic")
-                    button.editor-btn(type='button')
-                        i(class="fas fa-underline")
-                    button.editor-btn(type='button')
-                        i(class="fas fa-list-ul")
-                    button.editor-btn(type='button')
-                        i(class="fas fa-list-ol")
-                    button.editor-btn(type='button')
-                        i(class="fas fa-link")
-                    button.editor-btn(type='button')
-                        i(c;as="fas fa-image")
-                    button.editor-btn(type='button')
-                        i(class="fas fa-code")
-                    button.editor-btn(type='button')
-                        i(class="fas fa-heading")
-            
-                .editor-content(contenteditable='true')
-                    | Nhập mô tả chi tiết về sản phẩm tại đây...
-            
-            .row
-                .col-md-6.mb-3
-                    .form-switch
-                        input.form-check-input(type='checkbox', id='featuredProduct')
-                        label.form-check-label(for='featuredProduct') Sản phẩm nổi bật
-        
-        
-        // Product Images
-        .form-container
-            h2.section-title
-                i(class="fas fa-image")
-                span Hình ảnh sản phẩm
-        
-            .image-upload-container
-                i.fas.fa-cloud-upload-alt.image-upload-icon
-                h5 Kéo và thả hình ảnh vào đây
-                p hoặc
-                input(type='file', id='imageUpload', multiple, accept='image/*', style='display: none;')
-                button.btn.btn-outline-primary(onclick="document.getElementById('imageUpload').click()") Chọn hình ảnh
-            
-            .image-preview-container
-                .image-preview
-                    img(src='https://picsum.photos/seed/product1/150/150.jpg', alt='Product')
-                    button.image-remove
-                        i(class="fas fa-times")
-                .image-preview
-                    img(src='https://picsum.photos/seed/product2/150/150.jpg', alt='Product')
-                    button.image-remove
-                        i(class="fas fa-times")
+                .row 
+                    .col-md-4.mb-3
+                        label.form-label Giá gốc *
+                        input.form-control(
+                            type='number'
+                            name="price"
+                            placeholder='0'
+                        )
+                    .col-md-4.mb-3
+                        label.form-label % Giảm giá
+                        input.form-control(
+                            type='number'
+                            name="discountPercentage"
+                            placeholder='0'
+                        )
+                    .col-md-4.mb-3
+                        label.form-label Trạng thái
+                        select(
+                            class="form-select"
+                            name="status"
+                        )
+                            option(value='active') Hoạt động
+                            option(value='inactive') Không hoạt động
 
-
-        // Action Buttons
-        .action-buttons
-            button.btn-cancel(type='button') Hủy
-            button.btn-save(type='button') Lưu sản phẩm
+                .row 
+                    .col-md-6.mb-3
+                        label.form-label Số lượng tồn kho *
+                        input.form-control(
+                            type='number'
+                            name="stock"
+                            placeholder='0'
+                            required
+                        )
+                    .col-md-6.mb-3
+                        label.form-label Vị trí
+                        input.form-control(
+                            type='number'
+                            name="position"
+                            placeholder='Tự động tăng'
+                        )
                 
+                .mb-3
+                    label(class="description form-label") Mô tả chi tiết
+                    .editor-toolbar
+                        button.editor-btn(type='button')
+                            i(class="fas fa-bold")
+                        button.editor-btn(type='button')
+                            i(class="fas fa-italic")
+                        button.editor-btn(type='button')
+                            i(class="fas fa-underline")
+                        button.editor-btn(type='button')
+                            i(class="fas fa-list-ul")
+                        button.editor-btn(type='button')
+                            i(class="fas fa-list-ol")
+                        button.editor-btn(type='button')
+                            i(class="fas fa-link")
+                        button.editor-btn(type='button')
+                            i(c;as="fas fa-image")
+                        button.editor-btn(type='button')
+                            i(class="fas fa-code")
+                        button.editor-btn(type='button')
+                            i(class="fas fa-heading")
+                
+                    textarea(
+                        class="editor-content"
+                        name="description"
+                        contenteditable='true'
+                    )
+                
+                .row
+                    .col-md-6.mb-3
+                        .form-switch
+                            input.form-check-input(
+                                type='checkbox'
+                                id='featuredProduct'
+                                name="feature"
+                            )
+                            label.form-check-label(for='featuredProduct') Sản phẩm nổi bật
+            
+            
+                // Product Images
+                .form-container
+                    h2.section-title
+                        i(class="fas fa-image")
+                        span Hình ảnh sản phẩm
+                
+                    .image-upload-container
+                        i.fas.fa-cloud-upload-alt.image-upload-icon
+                        br
+                        input(
+                            type='file'
+                            id='imageUpload'
+                            accept='image/*'
+                            name="thumbnail"
+                        )
+                        img(
+                            src="#"
+                            alt=""
+                            id="img-preview"
+                        )
+
+
+                // Action Buttons
+                .action-buttons 
+                    button.btn-save(type='submit') Lưu sản phẩm
+                    

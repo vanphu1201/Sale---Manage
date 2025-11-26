@@ -1,6 +1,29 @@
 const express = require('express');
+
+// method override
+const methodOverride = require('method-override');
+// End method override
+
+// body parser
+const bodyParser = require('body-parser');
+// End body parser
+
+
 const app = express();
 const port = 3000;
+
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded())
+
+// parse application/json
+app.use(bodyParser.json())
+
+
+// Use method override
+app.use(methodOverride('X-HTTP-Method-Override'));
+// End Use method override
+
 
 // Database
 const database = require("./configs/database")

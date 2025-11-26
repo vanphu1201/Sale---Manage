@@ -927,6 +927,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 0 0 8px 8px;
     min-height: 200px;
+    width: 100%;
     padding: 15px;
     background-color: white;
 }

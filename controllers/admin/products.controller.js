@@ -31,6 +31,7 @@ module.exports.index = async (req, res) => {
 
     res.render('admin/pages/products/index.pug', {
         pageTitle: 'Products',
+        title: "Trang danh sách sản phẩm",
         products: products,
         searchValue: searchValue
     })
@@ -56,6 +57,30 @@ module.exports.delete = async (req, res) => {
 // [GET] /admin/products/create
 module.exports.create = async (req, res) => {
     res.render("admin/pages/products/create.pug", {
-        pageTitle: "Create product"
+        pageTitle: "Create product",
+        title: "Trang tạo sản phẩm"
     })
+}
+
+
+// [POST] /admin/products/create
+module.exports.createPost = async (req, res) => {
+    req.body.price = parseInt(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+
+    if (req.body.position == "") {
+        const countProduct = await Products.countDocuments({deleted: false});
+        req.body.position = countProduct + 1;
+    } else {
+        req.body.position = parseInt(req.body.position);
+    }
+
+    if (req.file) {
+        req.body.thumbnail = `/uploads/${req.file.filename}`
+    }
+    
+    const newProduct = new Products(req.body);
+    await newProduct.save();
+    res.redirect("/admin/products");
 }

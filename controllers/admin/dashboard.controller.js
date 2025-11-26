@@ -1,5 +1,6 @@
 module.exports.dashboard = (req, res) => {
     res.render('admin/pages/dashboard/index.pug', {
-        pageTitle: 'Dashboard'
+        pageTitle: 'Dashboard',
+        title: "Trang quản lý"
     })
 }

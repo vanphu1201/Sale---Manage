@@ -10,6 +10,10 @@ const ProductsSchema = new Schema({
     thumbnail: String,
     status: String,
     position: Number,
+    feature: {
+        type: String,
+        default: ""
+    },
     deleted: {
         type: Boolean,
         default: false

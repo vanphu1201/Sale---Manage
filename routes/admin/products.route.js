@@ -3,6 +3,8 @@ const route = express.Router();
 
 const controller = require("../../controllers/admin/products.controller");
 
+const upload = require("../../midlewares/admin/upload.middleware");
+
 route.get("/products", controller.index);
 
 route.get("/products/changeStatus/:changeStatus/:id", controller.changeStatus);
@@ -10,6 +12,12 @@ route.get("/products/changeStatus/:changeStatus/:id", controller.changeStatus);
 route.get("/products/delete/:id", controller.delete);
 
 route.get("/products/create", controller.create);
+
+route.post(
+    "/products/create",
+    upload.single("thumbnail"),
+    controller.createPost);
+
 
 
 module.exports = route;
