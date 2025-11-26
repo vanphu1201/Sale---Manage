@@ -10,9 +10,9 @@ block main
                 span Thông tin cơ bản
 
             form(
-                action="/admin/products/create"
+                action=`/admin/products/edit/${product.id}`
                 method="post"
-                class="form-create"
+                class="form-edit"
                 enctype="multipart/form-data"
             )
                 .row

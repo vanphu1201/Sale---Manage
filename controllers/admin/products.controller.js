@@ -101,3 +101,26 @@ module.exports.edit = async (req, res) => {
         product: product
     });
 }
+
+
+
+// [POST] /admin/products/edit/:id
+module.exports.editPost = async (req, res) => {
+    req.body.price = parseInt(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+
+    if (req.body.position == "") {
+        const countProduct = await Products.countDocuments({deleted: false});
+        req.body.position = countProduct + 1;
+    } else {
+        req.body.position = parseInt(req.body.position);
+    }
+
+    if (req.file) {
+        req.body.thumbnail = `/uploads/${req.file.filename}`
+    }
+    
+    await Products.updateOne({_id: req.params.id}, (req.body));
+    res.redirect("/admin/products");
+}

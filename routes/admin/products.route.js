@@ -21,6 +21,12 @@ route.post(
 
 route.get("/products/edit/:id", controller.edit);
 
+route.post(
+    "/products/edit/:id",
+    upload.single("thumbnail"),
+    controller.editPost
+);
+
 
 
 
