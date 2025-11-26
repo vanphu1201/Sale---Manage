@@ -84,3 +84,20 @@ module.exports.createPost = async (req, res) => {
     await newProduct.save();
     res.redirect("/admin/products");
 }
+
+
+
+// [GET] /admin/products/edit/:id
+module.exports.edit = async (req, res) => {
+    const id = req.params.id;
+    const product = await Products.findOne({
+        _id: id,
+        deleted: false
+    })
+
+    res.render("admin/pages/products/edit.pug", {
+        pageTitle: "Edit product",
+        title: "Trang sửa sản phẩm",
+        product: product
+    });
+}

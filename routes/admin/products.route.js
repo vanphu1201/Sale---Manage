@@ -16,7 +16,11 @@ route.get("/products/create", controller.create);
 route.post(
     "/products/create",
     upload.single("thumbnail"),
-    controller.createPost);
+    controller.createPost
+);
+
+route.get("/products/edit/:id", controller.edit);
+
 
 
 
