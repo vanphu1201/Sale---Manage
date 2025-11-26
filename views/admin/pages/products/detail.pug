@@ -1,0 +1,94 @@
+extends ../../layouts/default.pug
+    
+block main    
+    // Main Content
+    main.main-content
+
+        // Content Area
+        .content-area
+          .product-detail-container
+            // Product Header
+            .product-header
+                h2.product-title
+                    | #{product.title}
+                .product-actions
+                    a(
+                        href=`/admin/products/edit/${product.id}`
+                        class="btn-action btn-edit"
+                    )
+                        i(class="fas fa-edit")
+                        span Chỉnh sửa
+                    a(
+                        href=`/admin/products`
+                        class="btn-action btn-back"
+                    )
+                        i(class="fas fa-arrow-left")
+                        span Quay lại
+            
+            // Product Content - Single Tab
+            .product-content
+                // Product Images Section
+                .product-images-section
+                    .main-image-container
+                        img#mainImage.main-image(src=product.thumbnail, alt=product.title)
+                        span.image-badge Ảnh chính
+            
+                // Product Info Section
+                .product-info-section
+                    // Basic Information
+                    .info-group
+                        h3.info-title
+                            i.fas.fa-info-circle
+                            | Thông tin cơ bản
+                        .info-row
+                            .info-label Tên sản phẩm
+                            .info-value #{product.title}
+                        .info-row
+                            .info-label Danh mục
+                            .info-value Thời trang nam > Áo thun
+        
+                    // Pricing Information
+                    .info-group
+                        h3.info-title
+                            i.fas.fa-tag
+                            | Giá cả
+                        .info-row
+                            .info-label Giá bán
+                            .info-value
+                                .price-display
+                                    span.current-price #{product.currentPrice}đ
+                                    span.original-price #{product.price}đ
+                        .info-row
+                            .info-label Giảm giá
+                            .info-value #{product.discountPercentage}%
+                
+                    // Inventory Information
+                    .info-group
+                        h3.info-title
+                            i.fas.fa-warehouse
+                            | Tồn kho
+                        .info-row
+                            .info-label Số lượng
+                            .info-value
+                                .stock-status
+                                    span.stock-indicator.in-stock
+                                    span #{stock} sản phẩm
+                        .info-row
+                            .info-label Trạng thái
+                            .info-value
+                                if(product.status=="active")
+                                    span.status-badge.active Hoạt động
+                                else 
+                                    span.status-badge.inactive Dừng hoạt động
+                
+                
+                    // Description
+                    .info-group
+                        h3.info-title
+                            i.fas.fa-align-left
+                            | Mô tả
+                        .description-content#descriptionContent
+                            p.description #{product.description}
+            
+
+      

@@ -124,3 +124,21 @@ module.exports.editPost = async (req, res) => {
     await Products.updateOne({_id: req.params.id}, (req.body));
     res.redirect("/admin/products");
 }
+
+
+// [GET] /admin/products/detail/:id
+module.exports.detail = async (req, res) => {
+    const id = req.params.id;
+    const product = await Products.findOne({
+        _id: id,
+        deleted: false
+    })
+
+    currentPrice.currentPriceOnce(product);
+
+    res.render("admin/pages/products/detail.pug", {
+        pageTitle: "Detail product",
+        title: "Trang Chi tiết sản phẩm",
+        product: product
+    });
+}

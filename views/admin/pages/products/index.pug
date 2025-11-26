@@ -68,6 +68,11 @@ block main
                                 td
                                     .action-buttons
                                         a(
+                                            href=`/admin/products/detail/${product.id}`
+                                            class="btn-action detail"
+                                        )
+                                            i(class="fas fa-circle-exclamation")
+                                        a(
                                             href=`/admin/products/edit/${product.id}`
                                             class="btn-action edit"
                                         )

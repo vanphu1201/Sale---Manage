@@ -27,6 +27,7 @@ route.post(
     controller.editPost
 );
 
+route.get("/products/detail/:id", controller.detail);
 
 
 

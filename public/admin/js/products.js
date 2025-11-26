@@ -27,3 +27,19 @@ imgInp.onchange = evt => {
   }
 }
 // End upload img preview
+
+
+// Toggle description expansion
+function toggleDescription() {
+  const descriptionContent = document.getElementById('descriptionContent');
+  const readMoreBtn = document.querySelector('.read-more');
+  
+  if (descriptionContent.classList.contains('expanded')) {
+    descriptionContent.classList.remove('expanded');
+    readMoreBtn.textContent = 'Xem thêm';
+  } else {
+    descriptionContent.classList.add('expanded');
+    readMoreBtn.textContent = 'Thu gọn';
+  }
+}
+// End Toggle description expansion

@@ -4,3 +4,8 @@ module.exports.currentPriceMany = async (products) => {
     });
     return products;
 }
+
+module.exports.currentPriceOnce = async (product) => {
+    product.currentPrice = Math.round(product.price * (100 - product.discountPercentage)/100);
+    return product;
+}
