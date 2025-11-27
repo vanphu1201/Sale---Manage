@@ -29,6 +29,8 @@ block main
             table.table-custom
                 thead
                     tr
+                        th 
+                            input(type="checkbox", name="check-all")
                         th STT
                         th Sản phẩm
                         th Vị trí
@@ -42,6 +44,8 @@ block main
                                 box-product
                                 product-id=product.id
                             )
+                                td 
+                                    input(type="checkbox", name="check")
                                 td #{index + 1}
                                 td
                                     .d-flex.align-items-center.gap-3
