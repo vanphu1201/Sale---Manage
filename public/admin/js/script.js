@@ -9,10 +9,16 @@ const checkBoxAll = document.querySelector("input[name='check-all']");
 if (checkBoxAll) {
     checkBoxAll.addEventListener("change", e => {
         const checkBoxs = document.querySelectorAll("input[name='check']");
-        checkBoxs.forEach(e => {
-            e.checked =(e.checked == true ? false : true);
-        })
-    })
+        if (checkBoxAll.checked) {
+            checkBoxs.forEach(e => {
+                e.checked = true;
+            })
+        } else {
+            checkBoxs.forEach(e => {
+                e.checked = false;
+            })
+        }
+    });
 }
 
 
