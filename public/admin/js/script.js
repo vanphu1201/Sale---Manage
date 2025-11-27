@@ -37,3 +37,26 @@ if (checkBoxs) {
     });
 }
 // End Check box change multi
+
+
+// filter status
+const filterGroup = document.querySelector(".filter-group");
+if (filterGroup) {
+    const filterStatus = document.querySelectorAll("a[status]");
+    let url = new URL(window.location.href);
+    filterStatus.forEach(btn => {
+        btn.addEventListener("click", e => {
+            const status = btn.getAttribute("status");
+            if (status) {
+                url.searchParams.set("status", status);
+                window.location.href = url.href;
+            } else {
+                url.searchParams.delete("status");
+                window.location.href = url.href;
+            }
+            
+        })
+    })
+}
+// End filter status
+

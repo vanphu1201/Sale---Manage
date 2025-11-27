@@ -9,6 +9,17 @@ module.exports.index = async (req, res) => {
         deleted: false
     }
 
+    // filter status
+    const status = req.query.status;
+    if (status) {
+        find = {
+            ...find,
+            status: status
+        }
+    }
+    // End filter status
+
+
     // Search product
     const searchValue = req.query.search;
     if (searchValue) {

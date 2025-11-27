@@ -3,6 +3,20 @@ extends ../../layouts/default
 block main 
     .table-container
         .table-header
+            .filter-group
+                a(
+                    class="btn-status"
+                    status=""
+                ) Tất cả
+                a(
+                    class="btn-status"
+                    status="active"
+                ) Hoạt động
+                a(
+                    class="btn-status"
+                    status="inactive"
+                ) Dừng hoạt động
+
             .search-box
                 form(
                     action="/admin/products", method="get"
@@ -16,6 +30,9 @@ block main
                         value=searchValue
                     )
                     button(class="fas fa-search search-icon")
+
+            
+
             a(
                 href="/admin/products/create"
                 class="btn-add-product"
