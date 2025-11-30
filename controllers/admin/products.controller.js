@@ -1,6 +1,9 @@
 const Products = require("../../models/products.model");
 
 const currentPrice = require("../../helper/current-price.helper");
+const filterStatusHelper = require("../../helper/filter-status.helper");
+const searchProductAdmin = require("../../helper/search-product-admin.helper");
+const sortHelper = require("../../helper/sort.helper");
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
@@ -10,40 +13,19 @@ module.exports.index = async (req, res) => {
     }
 
     // filter status
-    const status = req.query.status;
-    if (status) {
-        find = {
-            ...find,
-            status: status
-        }
-    }
+    find = filterStatusHelper(req.query, find);
     // End filter status
 
 
     // Search product
-    const searchValue = req.query.search;
-    if (searchValue) {
-        const re = new RegExp(searchValue, "i");
-        find = {
-            ...find,
-            title: re
-        }
-    }
+    find = searchProductAdmin(req.query, find).find;
     // End Search product
 
     // Sort
     let sort = {
         position: "desc"
     }
-    const dataSort = req.query.sort;
-    if (dataSort) {
-        const [criterion, value] = dataSort.split("-");
-        console.log(criterion)
-        console.log(value)
-        sort = {
-            [criterion]: value
-        }
-    }
+    sort = sortHelper(req.query, sort);
     // End Sort
 
 
@@ -62,7 +44,7 @@ module.exports.index = async (req, res) => {
         pageTitle: 'Products',
         title: "Trang danh sách sản phẩm",
         products: products,
-        searchValue: searchValue,
+        searchValue: searchProductAdmin(req.query, find).searchValue,
         quantityStatus: quantityStatus,
         currentStatus: currentStatus
     })
