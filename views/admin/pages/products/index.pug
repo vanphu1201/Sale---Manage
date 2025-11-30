@@ -196,7 +196,7 @@ block main
     
     // Pagination
     .pagination-container
-        .pagination-info Hiển thị #{pagination.skip + 1}-#{(pagination.countProduct - (pagination.skip + pagination.limit) >= 1 ? (pagination.skip + 10) : (pagination.countProduct - pagination.skip))} của #{pagination.countProduct} sản phẩm
+        .pagination-info Hiển thị #{pagination.skip + 1}-#{(pagination.countProduct - (pagination.skip + pagination.limit) >= 1 ? (pagination.skip + 10) : (pagination.countProduct - pagination.skip+10))} của #{pagination.countProduct} sản phẩm
         .pagination-custom
             - if (pagination.currentPage > 1)
                 button.page-btn-left
