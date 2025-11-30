@@ -40,7 +40,6 @@ module.exports.index = async (req, res) => {
 
     quantityStatus = await Products.find({deleted: false});
     currentStatus = req.query.status;
-    console.log(currentStatus)
 
     res.render('admin/pages/products/index.pug', {
         pageTitle: 'Products',
@@ -156,4 +155,28 @@ module.exports.detail = async (req, res) => {
         title: "Trang Chi tiết sản phẩm",
         product: product
     });
+}
+
+
+
+// [POST] /admin/products/changeMultiStatus/:change/:ids
+module.exports.changeMulti = async (req, res) => {
+    const idsString = ((req.params.ids).split("-"));
+    const ids = idsString.splice(1, idsString.length)
+    const change = req.params.change;
+    
+
+    switch (change) {
+        case "active":
+            await Products.updateMany({_id: {$in: ids}}, {status: "active"});
+            break;
+        case "inactive":
+            await Products.updateMany({_id: {$in: ids}}, {status: "inactive"});
+            break;
+        case "delete":
+            await Products.updateMany({_id: {$in: ids}}, {deleted: true});
+            break;
+    }
+
+    res.redirect(req.headers.referer);
 }

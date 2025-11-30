@@ -29,6 +29,9 @@ route.post(
 
 route.get("/products/detail/:id", controller.detail);
 
+route.post("/products/changeMultiStatus/:change/:ids", controller.changeMulti);
+
+
 
 
 module.exports = route;

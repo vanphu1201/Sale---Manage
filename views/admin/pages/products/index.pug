@@ -90,15 +90,32 @@ block main
         // Bulk Actions
         .bulk-actions#bulkActions
             .bulk-info Đã chọn <span id="selectedCount">0</span> sản phẩm
-            button.bulk-btn.activate(type='button', onclick='bulkActivate()')
-                i.fas.fa-check
-                span Kích hoạt
-            button.bulk-btn.deactivate(type='button', onclick='bulkDeactivate()')
-                i.fas.fa-pause
-                span Ngừng hoạt động
-            button.bulk-btn.delete(type='button', onclick='bulkDelete()')
-                i.fas.fa-trash
-                span Xóa
+            form(
+                action="/admin/products/changeMultiStatus"
+                method="post"
+                form-change-status
+            ) 
+                button(
+                    class="bulk-btn activate"
+                    type='submit'
+                    active-multi
+                )
+                    i.fas.fa-check
+                    span  Kích hoạt
+                button(
+                    class="bulk-btn inactivate"
+                    type='submit'
+                    inactive-multi
+                )
+                    i.fas.fa-pause
+                    span  Ngừng hoạt động
+                button(
+                    class="bulk-btn delete"
+                    type='submit'
+                    delete-all
+                )
+                    i.fas.fa-trash
+                    span Xóa
         
         .table-responsive
             table.table-custom
@@ -106,7 +123,7 @@ block main
                     tr
                         th(width='40') 
                             input(
-                                class="product-checkbox"
+                                class="product-checkboxAll"
                                 type='checkbox'
                                 id='headerCheckbox'
                                 name="check-all"

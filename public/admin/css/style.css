@@ -460,6 +460,7 @@
         font-weight: 500;
         cursor: pointer;
         transition: all 0.3s;
+        margin-right: 10px;
     }
 
     .bulk-btn.activate {
@@ -472,12 +473,12 @@
         color: white;
     }
 
-    .bulk-btn.deactivate {
+    .bulk-btn.inactivate {
         background-color: rgba(231, 76, 60, 0.1);
         color: var(--primary-color);
     }
 
-    .bulk-btn.deactivate:hover {
+    .bulk-btn.inactivate:hover {
         background-color: var(--primary-color);
         color: white;
     }
