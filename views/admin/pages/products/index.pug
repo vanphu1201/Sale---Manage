@@ -71,21 +71,24 @@ block main
                         span Sắp xếp theo
                         i.fas.fa-chevron-down.ms-1
                     .sort-menu#sortMenu
-                        .sort-option(data-sort='name', onclick='sortProducts("name")')
-                            span Tên sản phẩm
+                        .sort-option(data-sort='title-asc')
+                            span Tên sản phẩm (a->z)
                             i.fas.fa-sort-alpha-down
-                        .sort-option(data-sort='price-asc', onclick='sortProducts("price-asc")')
+                        .sort-option(data-sort='title-desc')
+                            span Tên sản phẩm (z->a)
+                            i.fas.fa-sort-alpha-up
+                        .sort-option(data-sort='price-asc')
                             span Giá (thấp đến cao)
                             i.fas.fa-sort-amount-up
-                        .sort-option(data-sort='price-desc', onclick='sortProducts("price-desc")')
+                        .sort-option(data-sort='price-desc')
                             span Giá (cao đến thấp)
                             i.fas.fa-sort-amount-down
-                        .sort-option(data-sort='stock', onclick='sortProducts("stock")')
-                            span Tồn kho
-                            i.fas.fa-sort-numeric-down
-                        .sort-option(data-sort='date', onclick='sortProducts("date")')
-                            span Ngày tạo
-                            i.fas.fa-calendar
+                        .sort-option(data-sort='position-desc')
+                            span Vị trí (tăng dần)
+                            i.fas.fa-sort-amount-up
+                        .sort-option(data-sort='position-desc')
+                            span Vị trí (giảm dần)
+                            i.fas.fa-sort-amount-down
 
         // Bulk Actions
         .bulk-actions#bulkActions

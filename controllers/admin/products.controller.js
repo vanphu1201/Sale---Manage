@@ -31,7 +31,24 @@ module.exports.index = async (req, res) => {
     }
     // End Search product
 
-    const products = await Products.find(find).sort({position: "desc"});
+    // Sort
+    let sort = {
+        position: "desc"
+    }
+    const dataSort = req.query.sort;
+    if (dataSort) {
+        const [criterion, value] = dataSort.split("-");
+        console.log(criterion)
+        console.log(value)
+        sort = {
+            [criterion]: value
+        }
+    }
+    // End Sort
+
+
+    const products = await Products.find(find).sort(sort);
+
     
     
     // Tính current price

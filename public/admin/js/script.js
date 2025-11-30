@@ -258,64 +258,41 @@ if (formChangeMulti) {
     })
 }
 
+
+// sort
+const btnsSort = document.querySelectorAll("[data-sort]");
+if (btnsSort.length) {
+    btnsSort.forEach(btn => {
+        let url = new URL(window.location.href);
+        btn.addEventListener("click", (e) => {
+            const dataSort = btn.getAttribute("data-sort");
+            url.searchParams.set("sort", dataSort);
+            window.location.href = url.href;
+        })
+    })
+}
+// end sort
+
+
       
-      // Update filter counts
-      function updateFilterCounts() {
-        const activeRows = document.querySelectorAll('tr[data-status="active"]').length;
-        const inactiveRows = document.querySelectorAll('tr[data-status="inactive"]').length;
-        const totalRows = activeRows + inactiveRows;
-        
-        // Update filter button counts
-        document.querySelector('[data-filter="all"] .filter-count').textContent = totalRows;
-        document.querySelector('[data-filter="active"] .filter-count').textContent = activeRows;
-        document.querySelector('[data-filter="inactive"] .filter-count').textContent = inactiveRows;
-      }
-      
-      // Show notification
-      function showNotification(message, type) {
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `alert alert-${type} position-fixed top-0 start-50 translate-middle-x mt-3`;
-        notification.style.zIndex = '9999';
-        notification.style.minWidth = '300px';
-        notification.innerHTML = `
-          <div class="d-flex align-items-center">
-            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
-            ${message}
-          </div>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        // Auto remove after 3 seconds
-        setTimeout(() => {
-          notification.style.opacity = '0';
-          notification.style.transition = 'opacity 0.5s';
-          setTimeout(() => {
-            document.body.removeChild(notification);
-          }, 500);
-        }, 3000);
-      }
-    
-      
-      // Pagination
-      document.querySelectorAll('.page-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          if (!this.querySelector('i')) {
+// Close sort menu when clicking outside
+document.addEventListener('click', function (event) {
+    const sortDropdown = document.querySelector('.sort-dropdown');
+    const sortMenu = document.getElementById('sortMenu');
+
+    if (!sortDropdown.contains(event.target)) {
+        sortMenu.classList.remove('show');
+    }
+});
+
+
+// Pagination
+document.querySelectorAll('.page-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        if (!this.querySelector('i')) {
             document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             // In a real application, you would load the corresponding page
-          }
-        });
-      });
-      
-      // Close sort menu when clicking outside
-      document.addEventListener('click', function(event) {
-        const sortDropdown = document.querySelector('.sort-dropdown');
-        const sortMenu = document.getElementById('sortMenu');
-        
-        if (!sortDropdown.contains(event.target)) {
-          sortMenu.classList.remove('show');
         }
-      });
-
+    });
+});
