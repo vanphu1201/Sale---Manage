@@ -27,18 +27,37 @@ module.exports.index = async (req, res) => {
     }
     sort = sortHelper(req.query, sort);
     // End Sort
-
-
-    const products = await Products.find(find).sort(sort);
-
     
-    
+
+
+    quantityStatus = await Products.find({deleted: false});
+    currentStatus = req.query.status;
+
+
+
+    // pagination
+    const countProduct = await Products.countDocuments({deleted: false});
+    const objectPagination = {
+        countProduct: countProduct,
+        limit: 10,
+        skip: 0,
+        currentPage: 1,
+    }
+    const totalPage =  Math.ceil(countProduct / objectPagination.limit);
+    objectPagination.totalPage = totalPage;
+    if (req.query.page) {
+        objectPagination.currentPage = req.query.page;
+        objectPagination.skip = (objectPagination.currentPage - 1) * objectPagination.limit;
+    }
+    // End pagination
+
+    const products = await Products.find(find).sort(sort).limit(objectPagination.limit).skip(objectPagination.skip);
+
     // Tính current price
     currentPrice.currentPriceMany(products);
     // Hết Tính current price
 
-    quantityStatus = await Products.find({deleted: false});
-    currentStatus = req.query.status;
+
 
     res.render('admin/pages/products/index.pug', {
         pageTitle: 'Products',
@@ -46,7 +65,8 @@ module.exports.index = async (req, res) => {
         products: products,
         searchValue: searchProductAdmin(req.query, find).searchValue,
         quantityStatus: quantityStatus,
-        currentStatus: currentStatus
+        currentStatus: currentStatus,
+        pagination: objectPagination
     })
 }
 

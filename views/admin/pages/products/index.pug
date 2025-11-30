@@ -152,7 +152,7 @@ block main
                                         type='checkbox'
                                         onchange='updateBulkActions()'
                                     )
-                                td #{index + 1}
+                                td #{pagination.skip + index + 1}
                                 td
                                     .d-flex.align-items-center.gap-3
                                         img.product-img(src=product.thumbnail, alt=product.title)
@@ -196,14 +196,17 @@ block main
     
     // Pagination
     .pagination-container
-        .pagination-info Hiển thị 1-6 của 1,284 sản phẩm
+        .pagination-info Hiển thị #{pagination.skip + 1}-#{(pagination.countProduct - (pagination.skip + pagination.limit) >= 1 ? (pagination.skip + 10) : (pagination.countProduct - pagination.skip))} của #{pagination.countProduct} sản phẩm
         .pagination-custom
-            button.page-btn
-                i(class="fas fa-chevron-left")
-            button.page-btn.active 1
-            button.page-btn 2
-            button.page-btn 3
-            button.page-btn ...
-            button.page-btn 214
-            button.page-btn
-                i(class="fas fa-chevron-right")
+            - if (pagination.currentPage > 1)
+                button.page-btn-left
+                    i(class="fas fa-chevron-left")
+            - for(let i = 1; i <= pagination.totalPage; i++)
+                button(
+                    class="page-btn"
+                    page=i
+                    class=(pagination.currentPage == i ? "active" : "")
+                ) #{i}
+            - if (pagination.currentPage < pagination.totalPage)
+                button.page-btn-right
+                    i(class="fas fa-chevron-right")

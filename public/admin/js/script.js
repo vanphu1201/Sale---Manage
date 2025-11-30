@@ -287,12 +287,44 @@ document.addEventListener('click', function (event) {
 
 
 // Pagination
-document.querySelectorAll('.page-btn').forEach(btn => {
-    btn.addEventListener('click', function () {
-        if (!this.querySelector('i')) {
-            document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            // In a real application, you would load the corresponding page
-        }
-    });
-});
+const paginationContainer = document.querySelector(".pagination-container");
+if (paginationContainer) {
+    const btnsPage = paginationContainer.querySelectorAll(".page-btn");
+    if (btnsPage.length) {
+        let url = new URL(window.location.href);
+        btnsPage.forEach(btn => {
+            btn.addEventListener("click", e => {
+                const page = btn.getAttribute("page");
+                url.searchParams.set("page", page);
+                window.location.href = url.href;
+            })
+        })
+    }
+    const btnsPageLeft = paginationContainer.querySelector(".page-btn-left");
+    const btnPageRight = paginationContainer.querySelector(".page-btn-right");
+    if (btnsPageLeft) {
+        btnsPageLeft.addEventListener("click", e => {
+            let url = new URL(window.location.href);
+            let currentPage = url.searchParams.get("page");
+            if (currentPage) {
+                url.searchParams.set("page", parseInt(currentPage) - 1);
+                window.location.href = url.href;
+                
+            }
+        })
+    }
+
+    if (btnPageRight) {
+        btnPageRight.addEventListener("click", e => {
+            let url = new URL(window.location.href);
+            let currentPage = url.searchParams.get("page");
+            if (currentPage) {
+                url.searchParams.set("page", parseInt(currentPage) + 1);
+                window.location.href = url.href;
+            } else {
+                url.searchParams.set("page", 2);
+                window.location.href = url.href;
+            }
+        })
+    }
+}

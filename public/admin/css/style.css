@@ -644,7 +644,7 @@
     gap: 5px;
     }
     
-    .page-btn {
+    .page-btn, .page-btn-right, .page-btn-left {
     width: 36px;
     height: 36px;
     border: 1px solid #ddd;
@@ -657,14 +657,18 @@
     transition: all 0.3s;
     }
     
-    .page-btn:hover {
-    background-color: var(--light-bg);
+    .page-btn:hover,
+    .page-btn-right:hover,
+    .page-btn-left :hover {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
     }
     
     .page-btn.active {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
     }
 
 
