@@ -38,13 +38,17 @@ module.exports.index = async (req, res) => {
     currentPrice.currentPriceMany(products);
     // Hết Tính current price
 
-
+    quantityStatus = await Products.find({deleted: false});
+    currentStatus = req.query.status;
+    console.log(currentStatus)
 
     res.render('admin/pages/products/index.pug', {
         pageTitle: 'Products',
         title: "Trang danh sách sản phẩm",
         products: products,
-        searchValue: searchValue
+        searchValue: searchValue,
+        quantityStatus: quantityStatus,
+        currentStatus: currentStatus
     })
 }
 

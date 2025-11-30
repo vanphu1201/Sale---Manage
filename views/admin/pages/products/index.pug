@@ -3,20 +3,7 @@ extends ../../layouts/default
 block main 
     .table-container
         .table-header
-            .filter-group
-                a(
-                    class="btn-status"
-                    status=""
-                ) Tất cả
-                a(
-                    class="btn-status"
-                    status="active"
-                ) Hoạt động
-                a(
-                    class="btn-status"
-                    status="inactive"
-                ) Dừng hoạt động
-
+            
             .search-box
                 form(
                     action="/admin/products", method="get"
@@ -41,13 +28,90 @@ block main
             )
                 i(class="fas fa-plus")
                 span Thêm sản phẩm
+
+
+        // Filter and Sort Section
+        .controls-section
+            .filter-section
+                span.filter-label Lọc theo trạng thái:
+                .filter-buttons.filter-group
+                    a.filter-btn(
+                        class=(currentStatus == undefined ? "active" : "")
+                        class="btn-status"
+                        status=""
+                    )
+                        i.fas.fa-list
+                        span Tất cả
+                        - const all = quantityStatus.length;
+                        span.filter-count #{all}
+                    a.filter-btn(
+                        class=(currentStatus == "active" ? "active" : "")
+                        class="btn-status"
+                        status="active"
+                    )
+                        i.fas.fa-check-circle
+                        - const active = (quantityStatus.filter(item => item.status == "active")).length;
+                        span Hoạt động
+                        span.filter-count #{active}
+                    a.filter-btn(
+                        class="btn-status"
+                        class=(currentStatus == "inactive" ? "active" : "")
+                        status="inactive"
+                    )
+                        i.fas.fa-pause-circle
+                        - const inactive = (quantityStatus.filter(item => item.status == "inactive")).length;
+                        span Dừng hoạt động
+                        span.filter-count #{inactive}
+
+
+            .sort-section
+                .sort-dropdown
+                    button.sort-btn(type='button', onclick='toggleSortMenu()')
+                        i.fas.fa-sort
+                        span Sắp xếp theo
+                        i.fas.fa-chevron-down.ms-1
+                    .sort-menu#sortMenu
+                        .sort-option(data-sort='name', onclick='sortProducts("name")')
+                            span Tên sản phẩm
+                            i.fas.fa-sort-alpha-down
+                        .sort-option(data-sort='price-asc', onclick='sortProducts("price-asc")')
+                            span Giá (thấp đến cao)
+                            i.fas.fa-sort-amount-up
+                        .sort-option(data-sort='price-desc', onclick='sortProducts("price-desc")')
+                            span Giá (cao đến thấp)
+                            i.fas.fa-sort-amount-down
+                        .sort-option(data-sort='stock', onclick='sortProducts("stock")')
+                            span Tồn kho
+                            i.fas.fa-sort-numeric-down
+                        .sort-option(data-sort='date', onclick='sortProducts("date")')
+                            span Ngày tạo
+                            i.fas.fa-calendar
+
+        // Bulk Actions
+        .bulk-actions#bulkActions
+            .bulk-info Đã chọn <span id="selectedCount">0</span> sản phẩm
+            button.bulk-btn.activate(type='button', onclick='bulkActivate()')
+                i.fas.fa-check
+                span Kích hoạt
+            button.bulk-btn.deactivate(type='button', onclick='bulkDeactivate()')
+                i.fas.fa-pause
+                span Ngừng hoạt động
+            button.bulk-btn.delete(type='button', onclick='bulkDelete()')
+                i.fas.fa-trash
+                span Xóa
         
         .table-responsive
             table.table-custom
                 thead
                     tr
-                        th 
-                            input(type="checkbox", name="check-all")
+                        th(width='40') 
+                            input(
+                                class="product-checkbox"
+                                type='checkbox'
+                                id='headerCheckbox'
+                                name="check-all"
+                                onchange='toggleSelectAll()'
+                            )
                         th STT
                         th Sản phẩm
                         th Vị trí
@@ -62,7 +126,12 @@ block main
                                 product-id=product.id
                             )
                                 td 
-                                    input(type="checkbox", name="check")
+                                    input(
+                                        name="check"
+                                        class="product-checkbox"
+                                        type='checkbox'
+                                        onchange='updateBulkActions()'
+                                    )
                                 td #{index + 1}
                                 td
                                     .d-flex.align-items-center.gap-3
@@ -92,7 +161,7 @@ block main
                                             href=`/admin/products/detail/${product.id}`
                                             class="btn-action detail"
                                         )
-                                            i(class="fas fa-circle-exclamation")
+                                            i(class="fas fa-eye")
                                         a(
                                             href=`/admin/products/edit/${product.id}`
                                             class="btn-action edit"
