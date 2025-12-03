@@ -1,3 +1,6 @@
+require('dotenv').config();
+
+
 const express = require('express');
 
 // method override
@@ -10,7 +13,7 @@ const bodyParser = require('body-parser');
 
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 
 // parse application/x-www-form-urlencoded
