@@ -109,10 +109,6 @@ module.exports.createPost = async (req, res) => {
         req.body.position = parseInt(req.body.position);
     }
 
-    if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`
-    }
-    
     const newProduct = new Products(req.body);
     await newProduct.save();
     res.redirect("/admin/products");
@@ -150,10 +146,7 @@ module.exports.editPost = async (req, res) => {
         req.body.position = parseInt(req.body.position);
     }
 
-    if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`
-    }
-    
+ 
     await Products.updateOne({_id: req.params.id}, (req.body));
     res.redirect("/admin/products");
 }

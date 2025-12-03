@@ -1,4 +1,3 @@
-const multer  = require('multer');
 const path = require("path");
 
 // Folder lưu ảnh: /public/uploads
@@ -12,6 +11,5 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage });
 
 module.exports = upload;
