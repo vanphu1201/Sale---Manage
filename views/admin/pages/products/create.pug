@@ -1,6 +1,11 @@
 extends ../../layouts/default
+
+include ../../mixins/notify.pug
       
 block main
+    +notify(messages.success, "success")
+    +notify(messages.error, "error")
+    +notify(messages.info, "info")
     // Content Area
     .content-area
         // Basic Information
@@ -22,7 +27,6 @@ block main
                             type='text'
                             name="title"
                             placeholder='Nhập tên sản phẩm'
-                            required
                         )
                     .col-md-6.mb-3
                         label.form-label Danh mục *
@@ -68,7 +72,6 @@ block main
                             type='number'
                             name="stock"
                             placeholder='0'
-                            required
                         )
                     .col-md-6.mb-3
                         label.form-label Vị trí

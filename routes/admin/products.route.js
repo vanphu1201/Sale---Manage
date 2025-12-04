@@ -6,8 +6,9 @@ const upload = multer();
 
 const uploadClould = require("../../midlewares/admin/uploadClould.middleware");
 
-
 const controller = require("../../controllers/admin/products.controller");
+
+const validate = require("../../midlewares/admin/validate.middleware");
 
 
 route.get("/products", controller.index);
@@ -22,6 +23,7 @@ route.post(
     "/products/create",
     upload.single('thumbnail'),
     uploadClould.upload,
+    validate.createPost,
     controller.createPost
 );
 
@@ -31,6 +33,7 @@ route.post(
     "/products/edit/:id",
     upload.single('thumbnail'),
     uploadClould.upload,
+    validate.editPost,
     controller.editPost
 );
 
