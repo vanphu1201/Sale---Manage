@@ -1,5 +1,11 @@
 require('dotenv').config();
 
+// Flash
+const flash = require('express-flash');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+// End Flash
+
 
 const express = require('express');
 
@@ -15,6 +21,12 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT;
 
+
+// Flash
+app.use(cookieParser('keyboard cat'));
+app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(flash());
+// End Flash
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded())

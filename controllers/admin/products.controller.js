@@ -76,6 +76,7 @@ module.exports.changeStatus = async (req, res) => {
     const changeStatus = req.params.changeStatus;
     const id = req.params.id;
     await Products.updateOne({_id: id}, {status: changeStatus});
+    req.flash("success", "Thay đổi trạng thái sản phẩm thành công!");
     res.redirect(req.headers.referer);
 }
 
@@ -84,6 +85,7 @@ module.exports.changeStatus = async (req, res) => {
 module.exports.delete = async (req, res) => {
     const id = req.params.id;
     await Products.updateOne({_id: id}, {deleted: true});
+    req.flash("success", "Xóa sản phẩm thành công!");
     res.redirect(req.headers.referer);
 }
 
@@ -111,6 +113,7 @@ module.exports.createPost = async (req, res) => {
 
     const newProduct = new Products(req.body);
     await newProduct.save();
+    req.flash("success", "Tạo sản phẩm thành công!");
     res.redirect("/admin/products");
 }
 
@@ -148,6 +151,7 @@ module.exports.editPost = async (req, res) => {
 
  
     await Products.updateOne({_id: req.params.id}, (req.body));
+    req.flash("success", "Cập nhập sản phẩm thành công!");
     res.redirect("/admin/products");
 }
 

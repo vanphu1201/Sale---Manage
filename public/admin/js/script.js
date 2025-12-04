@@ -328,3 +328,37 @@ if (paginationContainer) {
         })
     }
 }
+
+
+
+
+// notify
+function showNotification(message, type = "success") {
+    let wrapper = document.getElementById("notification-wrapper");
+
+    if (!wrapper) {
+        wrapper = document.createElement("div");
+        wrapper.id = "notification-wrapper";
+        document.body.appendChild(wrapper);
+    }
+
+    const notif = document.createElement("div");
+    notif.classList.add("notification", type);
+
+    notif.innerHTML = `
+        <span>${message}</span>
+        <span class="close-btn">&times;</span>
+    `;
+
+    wrapper.appendChild(notif);
+
+    notif.querySelector(".close-btn").addEventListener("click", () => closeNotif(notif));
+
+    setTimeout(() => closeNotif(notif), 5000);
+}
+
+function closeNotif(notif) {
+    notif.style.animation = "slideOut 0.2s forwards";
+    setTimeout(() => notif.remove(), 200);
+}
+// end notify

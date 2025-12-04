@@ -1,6 +1,12 @@
 extends ../../layouts/default
 
+include ../../mixins/notify.pug
+
 block main 
+    +notify(messages.success, "success")
+    +notify(messages.error, "error")
+    +notify(messages.info, "info")
+
     .table-container
         .table-header
             

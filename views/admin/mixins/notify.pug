@@ -1,0 +1,6 @@
+mixin notify(message, type)
+    if message
+        script(src="/admin/js/script.js")
+        #notification-wrapper
+        script.
+            showNotification("#{message}", "#{type}");
