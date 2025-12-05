@@ -1,5 +1,7 @@
 extends ../../layouts/default.pug
 
+include ../../mixins/select-tree
+
 block styles
     link(rel="stylesheet", href="/admin/css/category.create.css")
 
@@ -44,8 +46,8 @@ block main
                                     name="parent_id"
                                 )
                                     option(value="" selected=(id != "" ? false : true)) -- Không có -- (Danh mục cấp 1)
-                                    each category in categories
-                                        option(value=category.id selected=(id == category.id ? true : false)) #{category.title}
+                                    - if (categories)
+                                        +select-tree(id, categories)
                         
                     .row
                         .col-md-6
