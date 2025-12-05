@@ -21,7 +21,7 @@ const categoryRouteSchema = new Schema(
             type: String,
             default: ""
         },
-         meta_description: {
+        meta_description: {
             type: String,
             default: ""
         },

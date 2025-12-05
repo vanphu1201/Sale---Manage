@@ -85,55 +85,9 @@ function setupEventListeners() {
         }
     });
 
-    categoryImage.addEventListener('change', function () {
-        if (this.files && this.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                imageUploadContainer.classList.add('has-image');
-                imageUploadContainer.innerHTML = `
-                            <img src="${e.target.result}" alt="Category Image" class="upload-preview">
-                            <button type="button" class="upload-remove" id="removeImage">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        `;
+   
 
-                // Re-attach event listener to new remove button
-                document.getElementById('removeImage').addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    imageUploadContainer.classList.remove('has-image');
-                    imageUploadContainer.innerHTML = `
-                                <div class="upload-placeholder">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    <p>Nhấp để tải lên hình ảnh</p>
-                                    <small>JPG, PNG hoặc GIF (Tối đa 2MB)</small>
-                                </div>
-                                <input type="file" id="categoryImage" accept="image/*" style="display: none;">
-                            `;
 
-                    // Re-attach event listener to new file input
-                    document.getElementById('categoryImage').addEventListener('change', arguments.callee);
-                });
-            };
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
-
-    // Remove image button
-    removeImage.addEventListener('click', function (e) {
-        e.stopPropagation();
-        imageUploadContainer.classList.remove('has-image');
-        imageUploadContainer.innerHTML = `
-                    <div class="upload-placeholder">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Nhấp để tải lên hình ảnh</p>
-                        <small>JPG, PNG hoặc GIF (Tối đa 2MB)</small>
-                    </div>
-                    <input type="file" id="categoryImage" accept="image/*" style="display: none;">
-                `;
-
-        // Re-attach event listener to new file input
-        document.getElementById('categoryImage').addEventListener('change', arguments.callee);
-    });
 
     // Sidebar toggle for mobile
     document.querySelector('.sidebar-toggle').addEventListener('click', function () {
@@ -190,6 +144,22 @@ function previewCategory() {
     document.getElementById('previewDetailDescription').textContent = categoryDescription;
     document.getElementById('previewDetailStatus').textContent = isActive ? 'Hoạt động' : 'Không hoạt động';
 
+
+    const statusBadge = document.querySelector(".status-badge");
+    if (isActive) {
+        statusBadge.classList.remove("inactive");
+        statusBadge.classList.add("active");
+        statusBadge.innerHTML = `
+        <i class="fas fa-circle" style="font-size: 8px;"></i> Hoạt động
+    `;
+    } else {
+        statusBadge.classList.remove("active");
+        statusBadge.classList.add("inactive");
+        statusBadge.innerHTML = `
+        <i class="fas fa-circle" style="font-size: 8px;"></i> Ngừng hoạt động
+    `;
+    }
+
     // Show modal
     const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
     previewModal.show();
@@ -225,13 +195,8 @@ function saveCategory() {
     // Log form data (in real app, this would be sent to server)
     console.log('Saving category:', formData);
 
-    // Show success notification
-    showToast('Danh mục đã được lưu thành công!', 'success');
 
-    // Redirect to categories page after a delay
-    setTimeout(() => {
-        window.location.href = 'categories.html';
-    }, 2000);
+
 }
 
 // Hiển thị thông báo

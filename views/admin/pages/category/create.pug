@@ -13,17 +13,11 @@ block main
                     i.fas.fa-plus-circle
                     |  Thông tin danh mục
                 .form-actions
-                    a.btn-cancel(href="categories.html")
-                        i.fas.fa-times
-                        |  Hủy
                     button.btn-preview(type="button" onclick="previewCategory()")
                         i.fas.fa-eye
                         |  Xem trước
-                    button.btn-save(type="button" onclick="saveCategory()")
-                        i.fas.fa-save
-                        |  Lưu
             
-            form#categoryForm
+            form(action="/admin/category/create", method="post" id="categoryForm") 
                 // Basic Information Section
                 .form-section
                     h3.section-title
@@ -36,12 +30,19 @@ block main
                                 label.form-label
                                     | Tên danh mục 
                                     span.required *
-                                input.form-control#categoryName(type="text" placeholder="Ví dụ: Thời trang nam" required)
-                                .invalid-feedback Vui lòng nhập tên danh mục
+                                input.form-control#categoryName(
+                                    name="title" 
+                                    type="text" 
+                                    placeholder="Ví dụ: Thời trang nam" required
+                                )
                         .col-md-6
                             .form-group
                                 label.form-label Danh mục cha
-                                select.form-select#parentCategory
+                                select(
+                                    class="form-select"
+                                    id="parentCategory"
+                                    name="parent_id"
+                                )
                                     option(value="") -- Không có -- (Danh mục cấp 1)
                                     option(value="1") Thời trang
                                     option(value="1-2") -- Thời trang nam
@@ -51,27 +52,31 @@ block main
                         .col-md-6
                             .form-group
                                 label.form-label Thứ tự sắp xếp
-                                input.form-control#categorySort(type="number" placeholder="0" min="0")
+                                input.form-control#categorySort(
+                                    name="position"
+                                    type="number" 
+                                    placeholder="0" 
+                                    min="0"
+                                )
                         .col-md-6
                             .form-group
                                 label.form-label Icon danh mục
                                 .icon-selector#iconSelector
-                                input(type="hidden" id="categoryIcon" value="fa-tshirt")
+                                input(
+                                    name="icon_category"
+                                    type="hidden"
+                                    id="categoryIcon"
+                                    value="fa-tshirt"
+                                )
                     
                     .form-group
                         label.form-label Mô tả
-                        textarea.form-control#categoryDescription(rows="3" placeholder="Mô tả ngắn gọn về danh mục")
+                        textarea.form-control#categoryDescription(
+                            name="description"
+                            rows="6"
+                            placeholder="Mô tả ngắn gọn về danh mục"
+                        )
                     
-                    .form-group
-                        label.form-label Hình ảnh danh mục
-                        .image-upload-container#imageUploadContainer
-                            .upload-placeholder
-                                i.fas.fa-cloud-upload-alt
-                                p Nhấp để tải lên hình ảnh
-                                small JPG, PNG hoặc GIF (Tối đa 2MB)
-                            input#categoryImage(type="file" accept="image/*" style="display: none;")
-                            button.upload-remove#removeImage(type="button")
-                                i.fas.fa-times
                 
                 // SEO Section
                 .form-section
@@ -81,24 +86,42 @@ block main
                     
                     .form-group
                         label.form-label Đường dẫn SEO (Slug)
-                        input.form-control#categorySlug(type="text" placeholder="thoi-trang-nam")
+                        input.form-control#categorySlug(
+                            name="slug"
+                            type="text" 
+                            placeholder="thoi-trang-nam"
+                        )
                         small.form-text.text-muted Đường dẫn sẽ được tự động tạo từ tên danh mục
                     
                     .form-group
                         label.form-label Tiêu đề SEO
-                        input.form-control#seoTitle(type="text" placeholder="Tiêu đề tối ưu cho công cụ tìm kiếm")
+                        input.form-control#seoTitle(
+                            name="seo_title"
+                            type="text"
+                            placeholder="Tiêu đề tối ưu cho công cụ tìm kiếm"
+                        )
                     
                     .form-group
                         label.form-label Mô tả Meta
-                        textarea.form-control#metaDescription(rows="3" placeholder="Mô tả ngắn gọn hiển thị trên kết quả tìm kiếm (tối đa 160 ký tự)")
+                        textarea.form-control#metaDescription(
+                            name="meta_description"
+                            rows="3" 
+                            placeholder="Mô tả ngắn gọn hiển thị trên kết quả tìm kiếm (tối đa 160 ký tự)"
+                        )
                         small.form-text.text-muted
                             span#metaCharCount 0
                             | /160 ký tự
                     
                     .form-group
                         label.form-label Từ khóa Meta
-                        input.form-control#metaKeywords(type="text" placeholder="thời trang, quần áo, nam")
+                        input.form-control#metaKeywords(
+                            name="meta_keywords"
+                            type="text" 
+                            placeholder="thời trang, quần áo, nam"
+                        )
                         small.form-text.text-muted Phân tách bằng dấu phẩy
+
+                
                     
                 
                 // Display Options Section
@@ -111,7 +134,9 @@ block main
                         .col-md-6
                             .form-group
                                 .form-switch
-                                    input.form-check-input#isActive(type="checkbox" checked)
+                                    input.form-check-input#isActive(
+                                        name="status"
+                                        type="checkbox" checked)
                                     label.form-check-label(for="isActive")
                                         | Hoạt động
                                 small.form-text.text-muted Danh mục sẽ hiển thị trên cửa hàng
@@ -122,22 +147,12 @@ block main
                                     label.form-check-label(for="showOnHomepage")
                                         | Hiển thị trên trang chủ
                                 small.form-text.text-muted Hiển thị danh mục này trên trang chủ
-                    
-                    .row
-                        .col-md-6
-                            .form-group
-                                .form-switch
-                                    input.form-check-input#showInMenu(type="checkbox" checked)
-                                    label.form-check-label(for="showInMenu")
-                                        | Hiển thị trong menu
-                                small.form-text.text-muted Hiển thị trong menu điều hướng
-                        .col-md-6
-                            .form-group
-                                .form-switch
-                                    input.form-check-input#showInSidebar(type="checkbox" checked)
-                                    label.form-check-label(for="showInSidebar")
-                                        | Hiển thị ở sidebar
-                                small.form-text.text-muted Hiển thị trong sidebar danh mục
+                .text-end.mt-3
+                    button.btn-save(type="submit" onclick="saveCategory()")
+                        i.fas.fa-save
+                        |  Lưu
+
+
 
     // Preview Modal
     .modal.fade#previewModal(tabindex="-1")
