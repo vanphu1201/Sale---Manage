@@ -20,12 +20,16 @@ if (formSearch) {
 // upload img preview
 const imgInp = document.querySelector("#imageUpload");
 const imgPreview = document.querySelector("#img-preview");
-imgInp.onchange = evt => {
-  const [file] = imgInp.files
-  if (file) {
-    imgPreview.src = URL.createObjectURL(file);
-  }
+if(imgInp && imgPreview) {
+  imgInp.addEventListener("change", event => {
+    const [file] = imgInp.files
+    if (file) {
+      imgPreview.src = URL.createObjectURL(file);
+    }
+  });
 }
+
+
 // End upload img preview
 
 

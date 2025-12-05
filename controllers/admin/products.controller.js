@@ -77,7 +77,7 @@ module.exports.changeStatus = async (req, res) => {
     const id = req.params.id;
     await Products.updateOne({_id: id}, {status: changeStatus});
     req.flash("success", "Thay đổi trạng thái sản phẩm thành công!");
-    res.redirect(req.headers.referer);
+    res.redirect("/admin/products");
 }
 
 

@@ -6,27 +6,25 @@ document.querySelector('.sidebar-toggle').addEventListener('click', function() {
 
 // Check box change multi
 const checkBoxAll = document.querySelector("input[name='check-all']");
-if (checkBoxAll) {
+const checkBoxs = document.querySelectorAll("input[name='check']");
+
+if (checkBoxAll && checkBoxs.length) {
     checkBoxAll.addEventListener("change", e => {
         const checkBoxs = document.querySelectorAll("input[name='check']");
         if (checkBoxAll.checked) {
-            checkBoxs.forEach(e => {
-                e.checked = true;
+            checkBoxs.forEach(input => {
+                input.checked = true;
             })
         } else {
-            checkBoxs.forEach(e => {
-                e.checked = false;
+            checkBoxs.forEach(input => {
+                input.checked = false;
             })
         }
     });
-}
 
-
-const checkBoxs = document.querySelectorAll("input[name='check']");
-if (checkBoxs) {
     checkBoxs.forEach( checkBox => {
         checkBox.addEventListener("change", e => {
-            e.checked =(e.checked == true ? false : true);
+            checkBox.checked =(checkBox.checked == true ? false : true);
             const checBoxsChecked = document.querySelectorAll("input[name='check']:checked");
             if (checkBoxs.length != checBoxsChecked.length) {
                 checkBoxAll.checked = false;
@@ -36,6 +34,7 @@ if (checkBoxs) {
         });
     });
 }
+
 // End Check box change multi
 
 
@@ -60,11 +59,13 @@ if (filterGroup) {
 }
 // End filter status
 
+const sidebarToggle = document.querySelector('.sidebar-toggle');
+if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', () => {
+        document.querySelector('.sidebar')?.classList.toggle('active');
+    });
+}
 
-// Sidebar toggle for mobile
-document.querySelector('.sidebar-toggle').addEventListener('click', function () {
-    document.querySelector('.sidebar').classList.toggle('active');
-});
 
 // Filter products
 function filterProducts(status) {
@@ -214,6 +215,7 @@ if (formChangeMulti) {
     btnActiveMulti.addEventListener("click", (e) => {
         e.preventDefault();
         const checkedBoxes = document.querySelectorAll('.product-checkbox:checked');
+        console.log(checkedBoxes)
         let ids = ``;
         checkedBoxes.forEach((checkedBox) => {
             const id = checkedBox.closest("tr[box-product]").getAttribute("product-id");
