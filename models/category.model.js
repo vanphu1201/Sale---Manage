@@ -9,13 +9,26 @@ const categoryRouteSchema = new Schema(
             default: ""
         },
         description: String,
-        icon: String,
+        icon_category: String,
         status: String,
         position: Number,
         slug: {
             type: String,
             slug: "title",
             unique: true
+        },
+        seo_title: {
+            type: String,
+            default: ""
+        },
+         meta_description: {
+            type: String,
+            default: ""
+        },
+
+        meta_keywords: {
+            type: String,
+            default: ""
         },
         deleted: {
             type: Boolean,
