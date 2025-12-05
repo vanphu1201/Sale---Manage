@@ -1,0 +1,311 @@
+extends ../../layouts/default.pug
+
+block styles
+    link(rel="stylesheet", href="/admin/css/category.create.css")
+
+block main 
+    // Content Area
+    .content-area
+        // Form Container
+        .form-container.fade-in
+            .form-header
+                h2.form-title
+                    i.fas.fa-plus-circle
+                    |  Thông tin danh mục
+                .form-actions
+                    a.btn-cancel(href="categories.html")
+                        i.fas.fa-times
+                        |  Hủy
+                    button.btn-preview(type="button" onclick="previewCategory()")
+                        i.fas.fa-eye
+                        |  Xem trước
+                    button.btn-save(type="button" onclick="saveCategory()")
+                        i.fas.fa-save
+                        |  Lưu
+            
+            form#categoryForm
+                // Basic Information Section
+                .form-section
+                    h3.section-title
+                        i.fas.fa-info-circle
+                        |  Thông tin cơ bản
+                    
+                    .row
+                        .col-md-6
+                            .form-group
+                                label.form-label
+                                    | Tên danh mục 
+                                    span.required *
+                                input.form-control#categoryName(type="text" placeholder="Ví dụ: Thời trang nam" required)
+                                .invalid-feedback Vui lòng nhập tên danh mục
+                        .col-md-6
+                            .form-group
+                                label.form-label Danh mục cha
+                                select.form-select#parentCategory
+                                    option(value="") -- Không có -- (Danh mục cấp 1)
+                                    option(value="1") Thời trang
+                                    option(value="1-2") -- Thời trang nam
+                                    option(value="5") Điện tử
+                    
+                    .row
+                        .col-md-6
+                            .form-group
+                                label.form-label Thứ tự sắp xếp
+                                input.form-control#categorySort(type="number" placeholder="0" min="0")
+                        .col-md-6
+                            .form-group
+                                label.form-label Icon danh mục
+                                .icon-selector#iconSelector
+                                input(type="hidden" id="categoryIcon" value="fa-tshirt")
+                    
+                    .form-group
+                        label.form-label Mô tả
+                        textarea.form-control#categoryDescription(rows="3" placeholder="Mô tả ngắn gọn về danh mục")
+                    
+                    .form-group
+                        label.form-label Hình ảnh danh mục
+                        .image-upload-container#imageUploadContainer
+                            .upload-placeholder
+                                i.fas.fa-cloud-upload-alt
+                                p Nhấp để tải lên hình ảnh
+                                small JPG, PNG hoặc GIF (Tối đa 2MB)
+                            input#categoryImage(type="file" accept="image/*" style="display: none;")
+                            button.upload-remove#removeImage(type="button")
+                                i.fas.fa-times
+                
+                // SEO Section
+                .form-section
+                    h3.section-title
+                        i.fas.fa-search
+                        |  Cấu hình SEO
+                    
+                    .form-group
+                        label.form-label Đường dẫn SEO (Slug)
+                        input.form-control#categorySlug(type="text" placeholder="thoi-trang-nam")
+                        small.form-text.text-muted Đường dẫn sẽ được tự động tạo từ tên danh mục
+                    
+                    .form-group
+                        label.form-label Tiêu đề SEO
+                        input.form-control#seoTitle(type="text" placeholder="Tiêu đề tối ưu cho công cụ tìm kiếm")
+                    
+                    .form-group
+                        label.form-label Mô tả Meta
+                        textarea.form-control#metaDescription(rows="3" placeholder="Mô tả ngắn gọn hiển thị trên kết quả tìm kiếm (tối đa 160 ký tự)")
+                        small.form-text.text-muted
+                            span#metaCharCount 0
+                            | /160 ký tự
+                    
+                    .form-group
+                        label.form-label Từ khóa Meta
+                        input.form-control#metaKeywords(type="text" placeholder="thời trang, quần áo, nam")
+                        small.form-text.text-muted Phân tách bằng dấu phẩy
+                    
+                    .form-group
+                        label.form-label Xem trước Google
+                        .seo-preview
+                            .seo-title#seoPreviewTitle Thời trang nam
+                            .seo-url https://example.com/danh-muc/thoi-trang-nam
+                            .seo-description#seoPreviewDescription Mô tả danh mục thời trang nam với các sản phẩm chất lượng cao...
+                
+                // Display Options Section
+                .form-section
+                    h3.section-title
+                        i.fas.fa-eye
+                        |  Tùy chọn hiển thị
+                    
+                    .row
+                        .col-md-6
+                            .form-group
+                                .form-switch
+                                    input.form-check-input#isActive(type="checkbox" checked)
+                                    label.form-check-label(for="isActive")
+                                        | Hoạt động
+                                small.form-text.text-muted Danh mục sẽ hiển thị trên cửa hàng
+                        .col-md-6
+                            .form-group
+                                .form-switch
+                                    input.form-check-input#showOnHomepage(type="checkbox")
+                                    label.form-check-label(for="showOnHomepage")
+                                        | Hiển thị trên trang chủ
+                                small.form-text.text-muted Hiển thị danh mục này trên trang chủ
+                    
+                    .row
+                        .col-md-6
+                            .form-group
+                                .form-switch
+                                    input.form-check-input#showInMenu(type="checkbox" checked)
+                                    label.form-check-label(for="showInMenu")
+                                        | Hiển thị trong menu
+                                small.form-text.text-muted Hiển thị trong menu điều hướng
+                        .col-md-6
+                            .form-group
+                                .form-switch
+                                    input.form-check-input#showInSidebar(type="checkbox" checked)
+                                    label.form-check-label(for="showInSidebar")
+                                        | Hiển thị ở sidebar
+                                small.form-text.text-muted Hiển thị trong sidebar danh mục
+
+    // Preview Modal
+    .modal.fade#previewModal(tabindex="-1")
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-header
+                    h5.modal-title
+                        i.fas.fa-eye
+                        |  Xem trước danh mục
+                    button.btn-close(type="button" data-bs-dismiss="modal")
+                .modal-body
+                    .category-preview
+                        .category-item.level-1
+                            span.status-badge.active
+                                i.fas.fa-circle(style="font-size: 8px;")
+                                |  Hoạt động
+                            .category-info
+                                i.fas.fa-tshirt#previewIcon
+                                span.category-name#previewName Thời trang nam
+                                .category-stats
+                                    span
+                                        i.fas.fa-box
+                                        |  0 sản phẩm
+                                    span
+                                        i.fas.fa-folder
+                                        |  0 danh mục con
+                            .category-actions
+                                button.btn-action.btn-detail(type="button")
+                                    i.fas.fa-info-circle
+                                button.btn-action.btn-edit(type="button")
+                                    i.fas.fa-edit
+                                button.btn-action.btn-delete(type="button")
+                                    i.fas.fa-trash
+                        
+                        .mt-4
+                            h6 Chi tiết danh mục:
+                            table.table.table-striped
+                                tr
+                                    td(width="150") Tên danh mục:
+                                    td#previewDetailName Thời trang nam
+                                tr
+                                    td Danh mục cha:
+                                    td#previewDetailParent Thời trang
+                                tr
+                                    td Slug:
+                                    td#previewDetailSlug thoi-trang-nam
+                                tr
+                                    td Mô tả:
+                                    td#previewDetailDescription Mô tả danh mục thời trang nam
+                                tr
+                                    td Trạng thái:
+                                    td#previewDetailStatus Hoạt động
+                .modal-footer
+                    button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Đóng
+                    button.btn.btn-primary(type="button" onclick="saveCategory()") Lưu danh mục
+
+block script
+    script(src="/admin/js/category.create.js") 
+        
+    
+    // Additional styles for preview modal
+    style.
+        .category-preview {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .category-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2c3e50;
+        }
+        
+        .category-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-info i {
+            margin-right: 12px;
+            font-size: 18px;
+            color: #e74c3c;
+        }
+        
+        .category-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-right: 20px;
+        }
+        
+        .category-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: #6c757d;
+        }
+        
+        .category-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-detail {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+        }
+        
+        .btn-detail:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-edit {
+            background-color: rgba(241, 196, 15, 0.1);
+            color: #f39c12;
+        }
+        
+        .btn-edit:hover {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .btn-delete {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+        
+        .btn-delete:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            text-align: center;
+            margin-right: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }

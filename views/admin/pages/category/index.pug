@@ -20,7 +20,7 @@ block main
                 .search-box
                     input.search-input#searchInput(type="text" placeholder="Tìm kiếm danh mục...")
                     i.fas.fa-search.search-icon
-                button.btn-add-category(type="button" onclick="openAddCategoryModal()")
+                a.btn-add-category(href="/admin/category/create")
                     i.fas.fa-plus
                     span Thêm danh mục
             
@@ -190,6 +190,6 @@ block main
 
     
 
-    block script
-        script(src="/admin/js/category.index.js") 
+block script
+    script(src="/admin/js/category.index.js") 
         

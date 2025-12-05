@@ -4,3 +4,12 @@ module.exports.index = async (req, res) => {
 
     });
 }
+
+
+
+// [GET] /admin/category/create
+module.exports.create = async (req, res) => {
+    res.render("admin/pages/category/create", {
+
+    });
+}
