@@ -43,11 +43,10 @@ block main
                                     id="parentCategory"
                                     name="parent_id"
                                 )
-                                    option(value="") -- Không có -- (Danh mục cấp 1)
-                                    option(value="1") Thời trang
-                                    option(value="1-2") -- Thời trang nam
-                                    option(value="5") Điện tử
-                    
+                                    option(value="" selected=(id != "" ? false : true)) -- Không có -- (Danh mục cấp 1)
+                                    each category in categories
+                                        option(value=category.id selected=(id == category.id ? true : false)) #{category.title}
+                        
                     .row
                         .col-md-6
                             .form-group
@@ -205,9 +204,6 @@ block main
                                 tr
                                     td Trạng thái:
                                     td#previewDetailStatus Hoạt động
-                .modal-footer
-                    button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Đóng
-                    button.btn.btn-primary(type="button" onclick="saveCategory()") Lưu danh mục
 
 block script
     script(src="/admin/js/category.create.js") 
