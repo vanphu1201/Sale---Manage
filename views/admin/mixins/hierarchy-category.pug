@@ -1,0 +1,59 @@
+mixin CategoryNode(category, level)
+    .category-node(
+        data-status= category.status
+        data-id= category.id
+    )
+        .category-item(class='level-' + level)
+            // STATUS BADGE
+            span.status-badge(class=category.status)(
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title= category.status === "active" ? "Đang hoạt động" : "Ngừng hoạt động"
+            )
+                i.fas.fa-circle(style="font-size: 8px;")
+                | #{category.status === "active" ? " Hoạt động" : " Ngừng hoạt động"}
+
+            // INFO
+            .category-info
+                i(class=`fas ${category.icon_category}`)
+                span.category-name #{category.title}
+                .category-stats
+                    if category.children
+                        span
+                            i.fas.fa-folder
+                            |  #{category.children.length} danh mục con
+                    span
+                        i.fas.fa-box
+                        |  #{category.productCount || 0} sản phẩm
+
+            // BUTTON TOGGLE CHILDREN
+            if category.children
+                button.toggle-btn(
+                    data-bs-toggle="collapse"
+                    data-bs-target=`#sub-${category.id}`
+                )
+                    i.fas.fa-chevron-down
+
+            // ACTION BTNs
+            .category-actions
+                a.btn-action.btn-add-sub-inline(
+                    data-bs-toggle="tooltip"
+                    title="Thêm danh mục con"
+                    href=`/admin/category/create/${category.id}`
+                )
+                    i.fas.fa-plus
+
+                button.btn-action.btn-detail
+                    i.fas.fa-info-circle
+
+                a.btn-action.btn-edit
+                    i.fas.fa-edit
+
+                button.btn-action.btn-delete
+                    i.fas.fa-trash
+
+        // CHILDREN RENDER
+        if category.children
+            .category-subcategories.collapse.show(id=`sub-${category.id}`)
+                each child in category.children
+                    +CategoryNode(child, level + 1)

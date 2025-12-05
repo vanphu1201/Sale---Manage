@@ -282,8 +282,10 @@ document.addEventListener('click', function (event) {
     const sortDropdown = document.querySelector('.sort-dropdown');
     const sortMenu = document.getElementById('sortMenu');
 
-    if (!sortDropdown.contains(event.target)) {
-        sortMenu.classList.remove('show');
+    if (sortDropdown && sortMenu) {
+        if (!sortDropdown.contains(event.target)) {
+            sortMenu.classList.remove('show');
+        }
     }
 });
 

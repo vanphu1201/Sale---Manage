@@ -2872,6 +2872,28 @@ body {
             border-color: var(--success-color);
             box-shadow: 0 0 0 0.25rem rgba(46, 204, 113, 0.25);
         }
+
+        .hidden-filter,
+        .hidden-search {
+            display: none !important;
+        }
+
+        /* icon xoay khi mở */
+        .toggle-btn i {
+            transition: .2s ease;
+        }
+        .toggle-btn i.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* highlight khi tìm kiếm */
+        .search-match > .category-item {
+            background: rgba(255, 230, 0, 0.35);
+            border-radius: 6px;
+        }
+
+        
+
         
         /* Responsive */
         @media (max-width: 992px) {
