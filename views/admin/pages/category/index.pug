@@ -1,0 +1,195 @@
+extends ../../layouts/default.pug
+
+block main
+
+    doctype html
+    html(lang="vi")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title Quản Lý Danh Mục - SP Shop Admin (Tối Ưu)
+        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css")
+        style.
+            
+
+    body    
+        .table-container
+            .category-header
+                h2.category-title Cấu Trúc Danh Mục
+                .search-box
+                    input.search-input#searchInput(type="text" placeholder="Tìm kiếm danh mục...")
+                    i.fas.fa-search.search-icon
+                button.btn-add-category(type="button" onclick="openAddCategoryModal()")
+                    i.fas.fa-plus
+                    span Thêm danh mục
+            
+            .filter-section
+                span.filter-label Lọc theo trạng thái:
+                .filter-buttons
+                    button.filter-btn.active(data-filter="all" onclick="filterCategories('all')")
+                        i.fas.fa-list
+                        span Tất cả
+                    button.filter-btn(data-filter="active" onclick="filterCategories('active')")
+                        i.fas.fa-check-circle
+                        span Hoạt động
+                    button.filter-btn(data-filter="inactive" onclick="filterCategories('inactive')")
+                        i.fas.fa-pause-circle
+                        span Ngừng hoạt động
+            
+            .category-tree#categoryTree
+                .category-node(data-status="active" data-id="1")
+                    .category-item.level-1(onclick="toggleSubcategories(this)")
+                        span.status-badge.active(data-bs-toggle="tooltip" data-bs-placement="top" title="Đang hoạt động")
+                            i.fas.fa-circle(style="font-size: 8px;")
+                            |  Hoạt động
+                        .category-info
+                            i.fas.fa-tshirt
+                            span.category-name Thời trang
+                            .category-stats
+                                span
+                                    i.fas.fa-folder
+                                    |  8 danh mục con
+                                span
+                                    i.fas.fa-box
+                                    |  156 sản phẩm
+                        button.toggle-btn(data-bs-toggle="collapse" data-bs-target="#sub-1")
+                            i.fas.fa-chevron-down
+                        .category-actions
+                            button.btn-action.btn-add-sub-inline(data-bs-toggle="tooltip" data-bs-placement="top" title="Thêm danh mục con" onclick="addSubcategory(1)")
+                                i.fas.fa-plus
+                            button.btn-action.btn-detail(onclick="viewCategoryDetails(1)")
+                                i.fas.fa-info-circle
+                            button.btn-action.btn-edit(onclick="editCategory(1)")
+                                i.fas.fa-edit
+                            button.btn-action.btn-delete(onclick="deleteCategory(1)")
+                                i.fas.fa-trash
+                    
+                    .category-subcategories.collapse.show#sub-1
+                        .category-node(data-status="active" data-id="2")
+                            .category-item.level-2(onclick="toggleSubcategories(this)")
+                                span.status-badge.active(data-bs-toggle="tooltip" data-bs-placement="top" title="Đang hoạt động")
+                                    i.fas.fa-circle(style="font-size: 8px;")
+                                    |  Hoạt động
+                                .category-info
+                                    i.fas.fa-tshirt
+                                    span.category-name Thời trang nam
+                                    .category-stats
+                                        span
+                                            i.fas.fa-folder
+                                            |  4 danh mục con
+                                        span
+                                            i.fas.fa-box
+                                            |  89 sản phẩm
+                                button.toggle-btn(data-bs-toggle="collapse" data-bs-target="#sub-2")
+                                    i.fas.fa-chevron-down
+                                .category-actions
+                                    button.btn-action.btn-add-sub-inline(data-bs-toggle="tooltip" data-bs-placement="top" title="Thêm danh mục con" onclick="addSubcategory(2)")
+                                        i.fas.fa-plus
+                                    button.btn-action.btn-detail(onclick="viewCategoryDetails(2)")
+                                        i.fas.fa-info-circle
+                                    button.btn-action.btn-edit(onclick="editCategory(2)")
+                                        i.fas.fa-edit
+                                    button.btn-action.btn-delete(onclick="deleteCategory(2)")
+                                        i.fas.fa-trash
+                            
+                            .category-subcategories.collapse.show#sub-2
+                                .category-node(data-status="active" data-id="3")
+                                    .category-item.level-3
+                                        span.status-badge.active(data-bs-toggle="tooltip" data-bs-placement="top" title="Đang hoạt động")
+                                            i.fas.fa-circle(style="font-size: 8px;")
+                                            |  Hoạt động
+                                        .category-info
+                                            i.fas.fa-tshirt
+                                            span.category-name Áo sơ mi
+                                            .category-stats
+                                                span
+                                                    i.fas.fa-box
+                                                    |  45 sản phẩm
+                                        .category-actions
+                                            button.btn-action.btn-detail(onclick="viewCategoryDetails(3)")
+                                                i.fas.fa-info-circle
+                                            button.btn-action.btn-edit(onclick="editCategory(3)")
+                                                i.fas.fa-edit
+                                            button.btn-action.btn-delete(onclick="deleteCategory(3)")
+                                                i.fas.fa-trash
+                                .category-node(data-status="inactive" data-id="4")
+                                    .category-item.level-3
+                                        span.status-badge.inactive(data-bs-toggle="tooltip" data-bs-placement="top" title="Đã tắt")
+                                            i.fas.fa-circle(style="font-size: 8px;")
+                                            |  Ngừng hoạt động
+                                        .category-info
+                                            i.fas.fa-tshirt
+                                            span.category-name Áo thun
+                                            .category-stats
+                                                span
+                                                    i.fas.fa-box
+                                                    |  67 sản phẩm
+                                        .category-actions
+                                            button.btn-action.btn-detail(onclick="viewCategoryDetails(4)")
+                                                i.fas.fa-info-circle
+                                            button.btn-action.btn-edit(onclick="editCategory(4)")
+                                                i.fas.fa-edit
+                                            button.btn-action.btn-delete(onclick="deleteCategory(4)")
+                                                i.fas.fa-trash
+
+                
+                .category-node(data-status="active" data-id="5")
+                    .category-item.level-1(onclick="toggleSubcategories(this)")
+                        span.status-badge.active(data-bs-toggle="tooltip" data-bs-placement="top" title="Đang hoạt động")
+                            i.fas.fa-circle(style="font-size: 8px;")
+                            |  Hoạt động
+                        .category-info
+                            i.fas.fa-laptop
+                            span.category-name Điện tử
+                            .category-stats
+                                span
+                                    i.fas.fa-folder
+                                    |  4 danh mục con
+                                span
+                                    i.fas.fa-box
+                                    |  89 sản phẩm
+                        button.toggle-btn(data-bs-toggle="collapse" data-bs-target="#sub-5")
+                            i.fas.fa-chevron-down
+                        .category-actions
+                            button.btn-action.btn-add-sub-inline(data-bs-toggle="tooltip" data-bs-placement="top" title="Thêm danh mục con" onclick="addSubcategory(5)")
+                                i.fas.fa-plus
+                            button.btn-action.btn-detail(onclick="viewCategoryDetails(5)")
+                                i.fas.fa-info-circle
+                            button.btn-action.btn-edit(onclick="editCategory(5)")
+                                i.fas.fa-edit
+                            button.btn-action.btn-delete(onclick="deleteCategory(5)")
+                                i.fas.fa-trash
+
+                .category-node(data-status="inactive" data-id="17")
+                    .category-item.level-1(onclick="toggleSubcategories(this)")
+                        span.status-badge.inactive(data-bs-toggle="tooltip" data-bs-placement="top" title="Đã tắt")
+                            i.fas.fa-circle(style="font-size: 8px;")
+                            |  Ngừng hoạt động
+                        .category-info
+                            i.fas.fa-book
+                            span.category-name Sách & Văn phòng phẩm
+                            .category-stats
+                                span
+                                    i.fas.fa-box
+                                    |  0 sản phẩm
+                                span
+                                    i.fas.fa-folder
+                                    |  0 danh mục con
+                        button.toggle-btn(data-bs-toggle="collapse" data-bs-target="#sub-17")
+                            i.fas.fa-chevron-down
+                        .category-actions
+                            button.btn-action.btn-add-sub-inline(data-bs-toggle="tooltip" data-bs-placement="top" title="Thêm danh mục con" onclick="addSubcategory(17)")
+                                i.fas.fa-plus
+                            button.btn-action.btn-detail(onclick="viewCategoryDetails(17)")
+                                i.fas.fa-info-circle
+                            button.btn-action.btn-edit(onclick="editCategory(17)")
+                                i.fas.fa-edit
+                            button.btn-action.btn-delete(onclick="deleteCategory(17)")
+                                i.fas.fa-trash
+
+    
+
+    block script
+        script(src="/admin/js/category.index.js") 
+        
