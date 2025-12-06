@@ -54,3 +54,41 @@ module.exports.editPost = (req, res, next) => {
     
     next();
 }
+
+
+
+module.exports.editPost = (req, res, next) => {
+    if (!req.body.title) {
+        req.flash("error", "Hãy nhập tên cho danh mục!");
+        res.redirect(req.headers.referer);
+    }
+    if (!req.body.title) {
+        req.flash("error", "Hãy nhập tên cho danh mục!");
+        res.redirect(req.headers.referer);
+    }
+    if (!req.body.title) {
+        req.flash("error", "Hãy nhập tên cho danh mục!");
+        res.redirect(req.headers.referer);
+    }
+    if (!req.body.title) {
+        req.flash("error", "Hãy nhập tên cho danh mục!");
+        res.redirect(req.headers.referer);
+    }
+    if (!req.body.title) {
+        req.flash("error", "Hãy nhập tên cho danh mục!");
+        res.redirect(req.headers.referer);
+    }
+    if (!req.body.title) {
+        req.flash("error", "Hãy nhập tên cho danh mục!");
+        res.redirect(req.headers.referer);
+    }
+    if (!req.body.title) {
+        req.flash("error", "Hãy nhập tên cho danh mục!");
+        res.redirect(req.headers.referer);
+    }if (!req.body.title) {
+        req.flash("error", "Hãy nhập tên cho danh mục!");
+        res.redirect(req.headers.referer);
+    }
+    
+    next();
+}

@@ -46,7 +46,7 @@ mixin CategoryNode(category, level)
                 button.btn-action.btn-detail
                     i.fas.fa-info-circle
 
-                a.btn-action.btn-edit
+                a.btn-action.btn-edit(href=`/admin/category/edit/${category.id}`)
                     i.fas.fa-edit
 
                 button.btn-action.btn-delete

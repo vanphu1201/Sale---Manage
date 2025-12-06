@@ -19,7 +19,7 @@ block main
                         i.fas.fa-eye
                         |  Xem trước
             
-            form(action="/admin/category/create", method="post" id="categoryForm") 
+            form(action=`/admin/category/edit/${id}`, method="post" id="categoryForm") 
                 // Basic Information Section
                 .form-section
                     h3.section-title
@@ -33,6 +33,7 @@ block main
                                     | Tên danh mục 
                                     span.required *
                                 input.form-control#categoryName(
+                                    value=category.title
                                     name="title" 
                                     type="text" 
                                     placeholder="Ví dụ: Thời trang nam" required
@@ -45,15 +46,16 @@ block main
                                     id="parentCategory"
                                     name="parent_id"
                                 )
-                                    option(value="" selected=(id != "new" ? false : true)) -- Không có -- (Danh mục cấp 1)
+                                    option(value="" selected=(parent_id != "" ? false : true)) -- Không có -- (Danh mục cấp 1)
                                     - if (categories)
-                                        +select-tree(id, categories)
+                                        +select-tree(parent_id, categories)
                         
                     .row
                         .col-md-6
                             .form-group
                                 label.form-label Thứ tự sắp xếp
                                 input.form-control#categorySort(
+                                    value=category.position
                                     name="position"
                                     type="number" 
                                     placeholder="0" 
@@ -67,7 +69,7 @@ block main
                                     name="icon_category"
                                     type="hidden"
                                     id="categoryIcon"
-                                    value="fa-tshirt"
+                                    value=category.icon_category
                                 )
                     
                     .form-group
@@ -76,7 +78,7 @@ block main
                             name="description"
                             rows="6"
                             placeholder="Mô tả ngắn gọn về danh mục"
-                        )
+                        ) #{category.description}
                     
                 
                 // SEO Section
@@ -89,8 +91,9 @@ block main
                         label.form-label Đường dẫn SEO (Slug)
                         input.form-control#categorySlug(
                             name="slug"
-                            type="text" 
+                            type="text"
                             placeholder="thoi-trang-nam"
+                            value=category.slug
                         )
                         small.form-text.text-muted Đường dẫn sẽ được tự động tạo từ tên danh mục
                     
@@ -100,6 +103,7 @@ block main
                             name="seo_title"
                             type="text"
                             placeholder="Tiêu đề tối ưu cho công cụ tìm kiếm"
+                            value=category.slug
                         )
                     
                     .form-group
@@ -108,7 +112,7 @@ block main
                             name="meta_description"
                             rows="3" 
                             placeholder="Mô tả ngắn gọn hiển thị trên kết quả tìm kiếm (tối đa 160 ký tự)"
-                        )
+                        ) #{category.meta_description}
                         small.form-text.text-muted
                             span#metaCharCount 0
                             | /160 ký tự
@@ -119,6 +123,7 @@ block main
                             name="meta_keywords"
                             type="text" 
                             placeholder="thời trang, quần áo, nam"
+                            value=category.meta_keywords
                         )
                         small.form-text.text-muted Phân tách bằng dấu phẩy
 
@@ -137,7 +142,7 @@ block main
                                 .form-switch
                                     input.form-check-input#isActive(
                                         name="status"
-                                        type="checkbox" checked)
+                                        type="checkbox" checked=(category.status == "active" ? true : false))
                                     label.form-check-label(for="isActive")
                                         | Hoạt động
                                 small.form-text.text-muted Danh mục sẽ hiển thị trên cửa hàng
@@ -151,7 +156,7 @@ block main
                 .text-end.mt-3
                     button.btn-save(type="submit" onclick="saveCategory()")
                         i.fas.fa-save
-                        |  Lưu
+                        |  Cập nhập
 
 
 

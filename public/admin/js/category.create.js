@@ -49,8 +49,21 @@ function renderIconSelector() {
         iconSelector.appendChild(iconOption);
     });
 
-    // Select default icon
-    document.querySelector('.icon-option').classList.add('selected');
+
+     const currentIcon = document.getElementById('categoryIcon').value;
+    let found = false;
+
+    document.querySelectorAll('.icon-option').forEach(option => {
+        if (option.dataset.iconId === currentIcon) {
+            option.classList.add('selected');
+            found = true;
+        }
+    });
+
+    if (!found) {
+        const first = document.querySelector('.icon-option');
+        if (first) first.classList.add('selected');
+    }
 }
 
 // Thiết lập các event listeners

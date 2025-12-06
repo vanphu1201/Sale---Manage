@@ -10,6 +10,8 @@ route.get("/category/create/:id", controller.create);
 
 route.post("/category/create/", controller.createPost);
 
+route.get("/category/edit/:id", controller.edit);
 
+route.post("/category/edit/:id", controller.editPost);
 
 module.exports = route;
