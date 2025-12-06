@@ -44,9 +44,9 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 const database = require("./configs/database")
 // End Database
 
-
+const path = require("path");
 // static public
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(path.join(__dirname, "public")));
 // End static public
 
 
@@ -57,7 +57,7 @@ const RouteAdmin = require("./routes/admin/index.route");
 
 
 // pug
-app.set('views', `${__dirname}/views`);
+app.set('views', path.join(__dirname, "views"));
 app.set('view engine', 'pug');
 // end pug
 
