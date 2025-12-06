@@ -46,7 +46,7 @@ const database = require("./configs/database")
 
 
 // static public
-app.use(express.static('public'));
+app.use(express.static(`${__dirname}public`));
 // End static public
 
 
@@ -57,7 +57,7 @@ const RouteAdmin = require("./routes/admin/index.route");
 
 
 // pug
-app.set('views', './views');
+app.set('views', `${__dirname}./views`);
 app.set('view engine', 'pug');
 // end pug
 

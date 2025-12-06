@@ -29,7 +29,7 @@ block main
             .filter-section
                 span.filter-label Lọc theo trạng thái:
                 .filter-buttons
-                    button.filter-btn.active(data-filter="all" onclick="filterCategories('all')")
+                    button.filter-btn(data-filter="all" onclick="filterCategories('all')")
                         i.fas.fa-list
                         span Tất cả
                     button.filter-btn(data-filter="active" onclick="filterCategories('active')")

@@ -2892,6 +2892,36 @@ body {
             border-radius: 6px;
         }
 
+
+        /* Ẩn node không liên quan */
+        .category-node.hidden-filter {
+            display: none !important;
+        }
+
+        /* Node KHÔNG match & KHÔNG phải cha của match → mờ toàn khối */
+        .category-node.faded {
+            opacity: 0.25;                 /* mờ rõ */
+            filter: grayscale(0.9);        /* xám nhẹ, đẹp */
+            pointer-events: none;          /* tránh click nhầm */
+            transition: opacity 0.25s ease, filter 0.25s ease;
+        }
+
+        /* Node match filter → hiển thị rõ */
+        .category-node.match {
+            opacity: 1 !important;
+            filter: none !important;
+            pointer-events: auto !important;
+        }
+
+        /* CHA của node match (related parent) → hiển thị rõ */
+        .category-node.related-parent {
+            opacity: 1 !important;
+            filter: none !important;
+            pointer-events: auto !important;
+        }
+
+
+
         
 
         
